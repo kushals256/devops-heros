@@ -1,0 +1,5 @@
+  PID TTY           TIME CMD
+77756 ttys001    0:00.37 /bin/zsh -il
+23193 ttys003    0:00.08 /bin/zsh -i
+64673 ttys005    0:00.11 /bin/zsh -il
+81295 ttys007    0:00.08 /bin/zsh -il
