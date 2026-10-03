@@ -1,78 +1,58 @@
-# Session 18: Terraform & Infrastructure as Code (IaC)
+# Session 18 — Terraform & Infrastructure as Code
 
-## Session Information
-- **Session:** Session 18 – Terraform & Infrastructure as Code + AWS Fundamentals
-- **Repository:** `devops-heros/session18-terraform-iac`
+**Repository path:** `session18-terraform-iac/`
 
----
-
-## Table of Contents
-1. [Overview & Objectives](#overview--objectives)
-2. [Task 1: Terraform S3 Demo (Hands-on IaC Workflow)](#task-1-terraform-s3-demo-hands-on-iac-workflow)
-   - [2.1 Project Directory Structure](#21-project-directory-structure)
-   - [2.2 Terraform Code Files](#22-terraform-code-files)
-   - [2.3 Step-by-Step Hands-on Execution & Screenshots](#23-step-by-step-hands-on-execution--screenshots)
-   - [2.4 Terraform Lifecycle Flow & State Management](#24-terraform-lifecycle-flow--state-management)
-3. [Task 2: Comprehensive AWS Core Services Research](#task-2-comprehensive-aws-core-services-research)
-4. [Deliverables Verification Checklist](#deliverables-verification-checklist)
+This session covers two things:
+1. Running the full Terraform workflow to create and destroy an AWS S3 bucket
+2. Understanding the core AWS services that show up in real cloud / DevOps work
 
 ---
 
-## Overview & Objectives
+## What You Will Learn
 
-The primary objectives of this session are:
-
-1. **Infrastructure as Code (IaC) Mastery**: Implement the declarative Terraform workflow (`init` → `fmt` → `validate` → `plan` → `apply` → `show` → `output` → `destroy`) to provision and manage AWS resources safely.
-2. **AWS S3 Lifecycle Automation**: Configure modular Terraform manifests (`main.tf`, `variables.tf`, `outputs.tf`, `providers.tf`, `terraform.tf`, `terraform.tfvars`) to manage Amazon S3 buckets.
-3. **AWS Foundational Architecture Research**: Conduct an in-depth architectural breakdown of core AWS building blocks: Identity (IAM), Compute (EC2), Object Storage (S3), Virtual Networking (VPC), and Databases (DynamoDB & RDS).
+| Topic | Outcome |
+|---|---|
+| Infrastructure as Code | Define cloud resources in files instead of clicking in a console |
+| Terraform workflow | `init` → `fmt` → `validate` → `plan` → `apply` → `output` → `destroy` |
+| State | How Terraform remembers what it created |
+| AWS foundations | IAM, EC2, S3, VPC, DynamoDB, RDS |
 
 ---
 
-## Task 1: Terraform S3 Demo (Hands-on IaC Workflow)
-
-### 2.1 Project Directory Structure
+## Project Layout
 
 ```text
 session18-terraform-iac/
-├── Assignment_Readme.md
-├── Readme.md
-├── screenshots/
-│   ├── terraform_aws_installation_&_configuration.png
-│   ├── terraform_init_fmt_validate.png
-│   ├── terraform_plan_1.png
-│   ├── terraform_plan_2.png
-│   ├── terraform_apply_1.png
-│   ├── terraform_apply_2.png
-│   ├── terraform_state_list_&_show.png
-│   ├── terraform_state_show-2_&_output.png
-│   ├── aws_s3_ls.png
-│   ├── terraform_plan-destroy_1.png
-│   ├── terraform_plan-destroy_2.png
-│   ├── terraform_destroy_1.png
-│   ├── terraform_destroy_2.png
-│   └── terraform_destroy_3.png
-├── terraform-s3-demo/
-│   ├── main.tf
-│   ├── variables.tf
-│   ├── outputs.tf
-│   ├── providers.tf
+├── Assignment_Readme.md          ← this file
+├── Readme.md                     ← install links
+├── 01-iac-basics/ … 09-state/    ← concept labs from course
+├── terraform-s3-demo/            ← hands-on S3 project
 │   ├── terraform.tf
-│   ├── terraform.tfvars
-│   ├── .terraform.lock.hcl
+│   ├── providers.tf
+│   ├── variables.tf
+│   ├── terraform.tfvars          ← local values (gitignored)
+│   ├── main.tf
+│   ├── outputs.tf
 │   └── README.md
 └── aws-services/
-    ├── 01-iam/README.md
-    ├── 02-ec2/README.md
-    ├── 03-s3/README.md
-    ├── 04-vpc/README.md
-    └── 05-dynamodb-rds/README.md
+    ├── 01-iam/
+    ├── 02-ec2/
+    ├── 03-s3/
+    ├── 04-vpc/
+    └── 05-dynamodb-rds/
 ```
 
 ---
 
-### 2.2 Terraform Code Files
+## Task 1 — Terraform S3 Demo
 
-#### 1. `terraform.tf` (Terraform Settings & Provider Requirements)
+### Goal
+
+Use Terraform to create an S3 bucket in `ap-south-1`, inspect state/outputs, verify it in AWS, then destroy it cleanly.
+
+### Code Overview
+
+**`terraform.tf`** — version + provider constraints
 
 ```hcl
 terraform {
@@ -86,7 +66,7 @@ terraform {
 }
 ```
 
-#### 2. `providers.tf` (AWS Provider Configuration)
+**`providers.tf`** — AWS region from a variable
 
 ```hcl
 provider "aws" {
@@ -94,7 +74,7 @@ provider "aws" {
 }
 ```
 
-#### 3. `variables.tf` (Input Variable Declarations)
+**`variables.tf`** — inputs
 
 ```hcl
 variable "aws_region" {
@@ -110,14 +90,7 @@ variable "bucket_name" {
 }
 ```
 
-#### 4. `terraform.tfvars` (Variable Value Definitions)
-
-```hcl
-aws_region  = "ap-south-1"
-bucket_name = "yatri1107"
-```
-
-#### 5. `main.tf` (AWS S3 Bucket Resource Definition)
+**`main.tf`** — the bucket resource
 
 ```hcl
 resource "aws_s3_bucket" "yatri1107" {
@@ -133,331 +106,192 @@ resource "aws_s3_bucket" "yatri1107" {
 }
 ```
 
-#### 6. `outputs.tf` (Output Value Exposures)
+**`outputs.tf`** — values Terraform prints after apply
 
 ```hcl
 output "bucket_name" {
-  type        = string
-  description = "Name of the S3 bucket."
-  value       = aws_s3_bucket.yatri1107.bucket
+  value = aws_s3_bucket.yatri1107.bucket
 }
 
 output "bucket_arn" {
-  type        = string
-  description = "ARN of the S3 bucket."
-  value       = aws_s3_bucket.yatri1107.arn
+  value = aws_s3_bucket.yatri1107.arn
 }
 
 output "bucket_region" {
-  type        = string
-  description = "AWS region of the S3 bucket."
-  value       = aws_s3_bucket.yatri1107.region
+  value = aws_s3_bucket.yatri1107.region
 }
 ```
 
----
-
-### 2.3 Step-by-Step Hands-on Execution & Screenshots
-
-#### Step 1: Environment Verification & AWS CLI Configuration
-
-Before running Terraform, verify CLI binaries and configure AWS credentials.
-
-**Commands:**
+### Prerequisites
 
 ```bash
+# Install (once)
+# Terraform: https://developer.hashicorp.com/terraform/install
+# AWS CLI:   https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+
 terraform -version
 aws --version
 aws configure
 aws sts get-caller-identity
 ```
 
-**What to capture:** Terraform version, AWS CLI version, and a successful `get-caller-identity` response showing your IAM identity and account.
+`aws sts get-caller-identity` should succeed before you run any Terraform commands.
 
-![AWS CLI & Terraform Installation & Configuration](screenshots/terraform_aws_installation_&_configuration.png)
-
-> **Note:** `aws sts get-caller-identity` is the best pre-flight check. It confirms valid credentials without creating billable resources.
-
----
-
-#### Step 2: Initialization, Code Formatting & Validation
+### Hands-on Workflow
 
 ```bash
 cd session18-terraform-iac/terraform-s3-demo
-terraform init
-terraform fmt
-terraform validate
 ```
 
-- `terraform init` — downloads the AWS provider and writes `.terraform.lock.hcl`
-- `terraform fmt` — formats `.tf` files to HashiCorp style
-- `terraform validate` — checks syntax and consistency without calling AWS APIs
+| Step | Command | What it does |
+|---|---|---|
+| 1 | `terraform init` | Downloads AWS provider, creates lock file |
+| 2 | `terraform fmt` | Formats `.tf` files |
+| 3 | `terraform validate` | Checks syntax (no cloud API calls) |
+| 4 | `terraform plan` | Shows what will be created/changed/destroyed |
+| 5 | `terraform apply` | Creates the bucket (type `yes`) |
+| 6 | `terraform state list` | Lists resources in state |
+| 7 | `terraform state show aws_s3_bucket.yatri1107` | Shows full resource details |
+| 8 | `terraform output` | Prints bucket name / ARN / region |
+| 9 | `aws s3 ls` | Confirms the bucket exists in AWS |
+| 10 | `terraform plan -destroy` | Preview teardown |
+| 11 | `terraform destroy` | Deletes the bucket (type `yes`) |
 
-![Terraform Init, Fmt, Validate](screenshots/terraform_init_fmt_validate.png)
-
----
-
-#### Step 3: Terraform Execution Plan
-
-```bash
-terraform plan
-```
-
-Compares desired configuration against current state and shows what will change.
-
-Expected summary:
+Expected plan before create:
 
 ```text
 Plan: 1 to add, 0 to change, 0 to destroy.
 ```
 
-![Terraform Plan Part 1](screenshots/terraform_plan_1.png)
-![Terraform Plan Part 2](screenshots/terraform_plan_2.png)
-
----
-
-#### Step 4: Infrastructure Provisioning (Apply)
-
-```bash
-terraform apply
-```
-
-Type `yes` when prompted. Terraform calls AWS S3 APIs to create the bucket.
-
-Expected result:
-
-```text
-aws_s3_bucket.yatri1107: Creation complete
-Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
-```
-
-![Terraform Apply Part 1](screenshots/terraform_apply_1.png)
-![Terraform Apply Part 2](screenshots/terraform_apply_2.png)
-
----
-
-#### Step 5: Terraform State Inspection & Outputs
-
-```bash
-terraform state list
-terraform state show aws_s3_bucket.yatri1107
-terraform output
-```
-
-- `state list` — resources tracked in `terraform.tfstate`
-- `state show` — full attributes for the managed bucket
-- `output` — bucket name, ARN, and region from state
-
-![Terraform State List & Show](screenshots/terraform_state_list_&_show.png)
-![Terraform State Show 2 & Output](screenshots/terraform_state_show-2_&_output.png)
-
-> **Important:** Never edit `terraform.tfstate` by hand. Use `terraform state` commands only.
-
----
-
-#### Step 6: Live Cloud Verification via AWS CLI
-
-```bash
-aws s3 ls
-```
-
-Confirms the bucket exists in the AWS account (look for `yatri1107`).
-
-![AWS S3 List Verification](screenshots/aws_s3_ls.png)
-
----
-
-#### Step 7: Pre-Destruction Planning
-
-```bash
-terraform plan -destroy
-```
-
-Expected summary:
+Expected destroy plan:
 
 ```text
 Plan: 0 to add, 0 to change, 1 to destroy.
 ```
 
-![Terraform Plan Destroy Part 1](screenshots/terraform_plan-destroy_1.png)
-![Terraform Plan Destroy Part 2](screenshots/terraform_plan-destroy_2.png)
+### Lifecycle (mental model)
+
+```text
+*.tf / *.tfvars
+      │
+      ▼
+  terraform init
+      │
+      ▼
+  fmt + validate
+      │
+      ▼
+  plan  ──► review deltas
+      │
+      ▼
+  apply ──► AWS resources + terraform.tfstate
+      │
+      ├── state list / show / output
+      │
+      ▼
+  destroy ──► resources removed, state updated
+```
+
+### About `terraform.tfstate`
+
+- JSON file mapping config → real cloud objects
+- Local state is fine for class demos
+- Production: store state in a remote backend (S3) with locking (DynamoDB)
+- Never edit the state file by hand
 
 ---
 
-#### Step 8: Infrastructure Teardown & Destruction
+## Task 2 — AWS Core Services (Research Notes)
+
+Full write-ups live under [`aws-services/`](./aws-services/). Short summary below.
+
+### IAM — Who is allowed to do what
+
+- **Users / Groups / Roles / Policies**
+- Roles give temporary credentials (preferred over long-lived keys)
+- Evaluation order: explicit deny → allow → default deny
+- Best practice: least privilege + MFA + protect root
+
+### EC2 — Virtual machines
+
+- Launch from an **AMI**
+- Choose an **instance type** (CPU/RAM size)
+- **Security Groups** control inbound/outbound traffic
+- **EBS** = persistent disk
+- Lifecycle: Pending → Running → Stopped → Terminated
+
+### S3 — Object storage
+
+- Buckets hold objects (files)
+- Bucket names are globally unique
+- Storage classes trade cost vs access speed
+- Versioning + lifecycle rules protect and age data
+- Common DevOps uses: artifacts, logs, Terraform remote state
+
+### VPC — Your private network
+
+```text
+VPC (10.0.0.0/16)
+ ├── Public subnet  → Internet Gateway
+ └── Private subnet → NAT Gateway (outbound only)
+```
+
+- Security Groups = stateful, instance-level
+- NACLs = stateless, subnet-level
+
+### DynamoDB & RDS — Databases
+
+| | DynamoDB | RDS |
+|---|---|---|
+| Type | NoSQL | Relational SQL |
+| Scale | Horizontal partitions | Vertical + read replicas |
+| Best for | High-throughput key lookups, locks | Apps needing JOINs / ACID |
+| DevOps note | Often used for Terraform state locking | Common app primary DB |
+
+---
+
+## Quick Reference — Terraform Commands
 
 ```bash
+terraform init
+terraform fmt
+terraform validate
+terraform plan
+terraform apply
+terraform state list
+terraform state show <resource>
+terraform output
+terraform plan -destroy
 terraform destroy
 ```
 
-Type `yes` to confirm. Result:
+## Quick Reference — AWS Checks
 
-```text
-Destroy complete! Resources: 1 destroyed.
+```bash
+aws sts get-caller-identity
+aws s3 ls
+aws s3 ls s3://yatri1107
 ```
 
-![Terraform Destroy Part 1](screenshots/terraform_destroy_1.png)
-![Terraform Destroy Part 2](screenshots/terraform_destroy_2.png)
-![Terraform Destroy Part 3](screenshots/terraform_destroy_3.png)
+---
+
+## Checklist
+
+| Item | Location |
+|---|---|
+| S3 Terraform project | `terraform-s3-demo/` |
+| Manifests (`main`, `variables`, `outputs`, `providers`, `terraform`) | `terraform-s3-demo/*.tf` |
+| Project README | `terraform-s3-demo/README.md` |
+| IAM notes | `aws-services/01-iam/README.md` |
+| EC2 notes | `aws-services/02-ec2/README.md` |
+| S3 notes | `aws-services/03-s3/README.md` |
+| VPC notes | `aws-services/04-vpc/README.md` |
+| DynamoDB & RDS notes | `aws-services/05-dynamodb-rds/README.md` |
 
 ---
 
-### 2.4 Terraform Lifecycle Flow & State Management
+## Notes
 
-```mermaid
-graph TD
-    A["Configuration Files (*.tf, *.tfvars)"] --> B["terraform init"]
-    B --> C["terraform fmt & validate"]
-    C --> D["terraform plan"]
-    D --> E["terraform apply (yes)"]
-    E --> F["AWS Cloud Infrastructure (S3 Bucket)"]
-    E --> G["terraform.tfstate"]
-    G --> H["terraform state list / show"]
-    G --> I["terraform output"]
-    G --> J["terraform destroy (yes)"]
-    J --> K["Resources Deleted from AWS"]
-```
-
-#### What is `terraform.tfstate`?
-
-Terraform stores state about managed infrastructure in `terraform.tfstate`.
-
-- **Purpose:** Maps real cloud resources to configuration, tracks metadata, improves plan performance.
-- **Production best practice:** Use a remote backend (S3 + DynamoDB locking). Do not keep production state only on a laptop.
-
----
-
-## Task 2: Comprehensive AWS Core Services Research
-
-Detailed guides for each core AWS domain live under `aws-services/`:
-
-| Service | Category | Guide | Key Concepts |
-| :--- | :--- | :--- | :--- |
-| **IAM** | Governance & Identity | [aws-services/01-iam/README.md](./aws-services/01-iam/README.md) | Users, Groups, Roles, Policies, Least Privilege, MFA, STS |
-| **EC2** | Elastic Compute | [aws-services/02-ec2/README.md](./aws-services/02-ec2/README.md) | AMIs, Instance Types, Key Pairs, Security Groups, EBS, Lifecycle |
-| **S3** | Object Storage | [aws-services/03-s3/README.md](./aws-services/03-s3/README.md) | Buckets, Objects, Storage Classes, Versioning, Lifecycle, Encryption |
-| **VPC** | Cloud Networking | [aws-services/04-vpc/README.md](./aws-services/04-vpc/README.md) | CIDR, Subnets, Route Tables, IGW, NAT, NACLs vs SGs |
-| **DynamoDB & RDS** | Cloud Databases | [aws-services/05-dynamodb-rds/README.md](./aws-services/05-dynamodb-rds/README.md) | NoSQL vs SQL, Keys, Multi-AZ, Read Replicas, PITR |
-
----
-
-### 3.1 IAM – Governance & Identity Security
-
-**AWS IAM** controls authentication and authorization across AWS APIs.
-
-```text
-                  +--------------------------------+
-                  |         IAM Principal          |
-                  | (User / Role / Federated / OIDC)|
-                  +--------------------------------+
-                                  |
-                                  v
-                  +--------------------------------+
-                  |    Policy Evaluation Engine    |
-                  |  Explicit Deny > Explicit Allow |
-                  +--------------------------------+
-                                  |
-                   +--------------+--------------+
-                   |                             |
-                   v                             v
-           [ Allow Access ]               [ Deny Access ]
-```
-
-- **Users:** Permanent identity for a person or service (password / access keys).
-- **Groups:** Collections of users for attaching policies in bulk.
-- **Roles:** Temporary credentials via STS (EC2 instance profiles, Lambda, CI/CD OIDC).
-- **Policies:** JSON permission documents (`Effect`, `Action`, `Resource`, `Condition`).
-- **Least Privilege:** Grant only the minimum permissions required.
-- **Best practices:** MFA, rotate keys, prefer roles/groups over user-attached policies, lock down root.
-
----
-
-### 3.2 EC2 – Elastic Compute Cloud
-
-**Amazon EC2** provides on-demand virtual servers.
-
-- **AMI:** Template for OS + packages (e.g. Ubuntu).
-- **Instance types:** General (`t3`), compute (`c6i`), memory (`r6i`), storage (`i3`).
-- **Key pairs:** SSH authentication (`chmod 400 key.pem`).
-- **Security Groups:** Stateful instance firewall (allow rules only).
-- **EBS:** Persistent block storage attached to an AZ.
-- **Public vs Private IP:** Public may change on stop/start; private stays with the ENI.
-- **Lifecycle:** Pending → Running → Stopping → Stopped → Terminated.
-
----
-
-### 3.3 S3 – Simple Storage Service
-
-**Amazon S3** is object storage with extremely high durability.
-
-- **Buckets:** Globally unique containers in a region.
-- **Objects:** Key + value (+ metadata / version).
-- **Storage classes:** Standard, Intelligent-Tiering, IA, Glacier family.
-- **Versioning:** Protects against overwrite/delete mistakes.
-- **Lifecycle policies:** Auto-transition and expire objects.
-- **Encryption:** SSE-S3, SSE-KMS, SSE-C.
-- **Bucket policies:** Resource-based access control (HTTPS-only, IP allowlists, etc.).
-
----
-
-### 3.4 VPC – Virtual Private Cloud Networking
-
-**Amazon VPC** is an isolated virtual network in your account.
-
-```text
-+--------------------------------------------------------------------------+
-| VPC: 10.0.0.0/16                                                         |
-|  +-----------------------------+       +------------------------------+  |
-|  | Public Subnet (10.0.1.0/24) |       | Private Subnet (10.0.2.0/24) |  |
-|  | [Internet Gateway Route]    |       | [NAT Gateway Route]          |  |
-|  |   - ALB / Bastion           |       |   - App Servers / RDS DB     |  |
-|  +-----------------------------+       +------------------------------+  |
-+--------------------------------------------------------------------------+
-```
-
-- **CIDR:** Address range for the VPC.
-- **Public subnet:** Route `0.0.0.0/0` via Internet Gateway.
-- **Private subnet:** Outbound internet via NAT Gateway; no direct IGW route.
-- **Security Group vs NACL:** SG = stateful, instance-level; NACL = stateless, subnet-level.
-
----
-
-### 3.5 DynamoDB & RDS – Cloud Database Services
-
-```text
-+------------------------------------+------------------------------------+
-|       Amazon DynamoDB (NoSQL)      |          Amazon RDS (SQL)          |
-+------------------------------------+------------------------------------+
-| - Key-Value & Document model       | - Relational (MySQL, Postgres, …)  |
-| - Schemaless items                 | - Rigid schema & foreign keys      |
-| - Horizontal partitioning          | - Vertical scale + Read Replicas   |
-| - Single-digit ms at scale         | - JOINs & ACID transactions        |
-| - Ideal for locks & sessions       | - Ideal for ERP / e-commerce       |
-+------------------------------------+------------------------------------+
-```
-
-- **DynamoDB:** Managed NoSQL; partition/sort keys; often used for Terraform state locking.
-- **RDS:** Managed SQL engines; Multi-AZ HA; Read Replicas; automated backups / PITR.
-
----
-
-## Deliverables Verification Checklist
-
-| Requirement | Artifact / Path | Status |
-| :--- | :--- | :---: |
-| Terraform S3 Project Root | `terraform-s3-demo/` | Ready |
-| Terraform Manifests | `main.tf`, `variables.tf`, `outputs.tf`, `providers.tf`, `terraform.tf`, `terraform.tfvars` | Ready |
-| Terraform Workflow README | `terraform-s3-demo/README.md` | Ready |
-| AWS Setup Screenshot | `screenshots/terraform_aws_installation_&_configuration.png` | Add after run |
-| Init / Fmt / Validate Screenshot | `screenshots/terraform_init_fmt_validate.png` | Add after run |
-| Plan Screenshots | `screenshots/terraform_plan_*.png` | Add after run |
-| Apply Screenshots | `screenshots/terraform_apply_*.png` | Add after run |
-| State Screenshots | `screenshots/terraform_state_*.png` | Add after run |
-| AWS S3 List Screenshot | `screenshots/aws_s3_ls.png` | Add after run |
-| Plan-Destroy Screenshots | `screenshots/terraform_plan-destroy_*.png` | Add after run |
-| Destroy Screenshots | `screenshots/terraform_destroy_*.png` | Add after run |
-| IAM Research | `aws-services/01-iam/README.md` | Ready |
-| EC2 Research | `aws-services/02-ec2/README.md` | Ready |
-| S3 Research | `aws-services/03-s3/README.md` | Ready |
-| VPC Research | `aws-services/04-vpc/README.md` | Ready |
-| DynamoDB & RDS Research | `aws-services/05-dynamodb-rds/README.md` | Ready |
+- S3 bucket names must be globally unique. If `yatri1107` is taken, change `bucket_name` in `variables.tf` / `terraform.tfvars`.
+- Always run `terraform destroy` after the lab so you do not leave unused (billable) resources.
+- Keep AWS access keys out of git. `*.tfvars` is gitignored in this project for that reason.
