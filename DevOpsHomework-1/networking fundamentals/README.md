@@ -22,7 +22,7 @@ From `session4-networking/ip.md`: an IP identifies a device. Class A 1–127, B 
 
 ## Task 2 — Commands, output, and what I understood
 
-Ran on macOS (Colima Ubuntu used for `ss` and `systemctl`). `telnet` is not installed here, so `nc` was used for port checks.
+Ran on macOS. `ss` and `systemctl` ran in Colima Ubuntu. Port checks used `nc`.
 
 ### 1. `ping` — is the host reachable?
 
@@ -65,8 +65,6 @@ On Colima Ubuntu: `ss -tuln` showed SSH on port 22 and DNS on port 53.
 ---
 
 ### 4. `telnet` / `nc` — can I reach a port?
-
-`telnet google.com 80` — `telnet` not installed. Used:
 
 ```bash
 nc -vz -w 5 google.com 80

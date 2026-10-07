@@ -203,9 +203,9 @@ Need external access?
 
 ## Task 12: Minikube Docker-Driver Gotcha (macOS)
 
-`192.168.49.2:<NodePort>` is inside the Docker bridge. macOS cannot route to it directly.
+The NodePort is published on the Minikube node at `192.168.49.2`. From the Mac the service was opened with:
 
-**Workarounds:**
+**Access:**
 1. `minikube service <svc> --url` (keep terminal open)
 2. `minikube tunnel`
 3. `kubectl port-forward svc/<svc> 8080:80`

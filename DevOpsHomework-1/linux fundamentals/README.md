@@ -135,7 +135,7 @@ journalctl -k               # kernel only
 
 ### Check logs for a specific service
 
-`journalctl` is a systemd command. This Mac does not run systemd, so this was run in Ubuntu 24.04. The package is installed (`systemd 255`). A container has no journal files, so a service query returns “No journal files were found.” On a real Ubuntu machine the same command shows that service’s logs.
+`journalctl` reads the systemd journal. On Ubuntu 24.04 (`systemd 255`) a service query returned “No journal files were found.” The same command on a booted Ubuntu host lists that unit’s logs.
 
 ![journalctl on Ubuntu](screenshots/03-journalctl.png)
 

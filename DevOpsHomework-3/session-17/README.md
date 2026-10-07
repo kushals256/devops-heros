@@ -19,10 +19,10 @@ Code → unit test → secret scan → Docker build → image scan → deploy
 | Kubernetes | `k8s/deployment.yaml`, `k8s/service.yaml` |
 | Security gate | `build` and deploy are not separate jobs that skip a failed test. The workflow is one ordered job: a failed test or secret scan stops the rest |
 
-SAST and SCA in a full pipeline are tools such as Bandit/Semgrep and `pip-audit`/`npm audit`. This app has no third-party imports, so the unit test and the secret scan are the gates that actually ran. The Trivy step is in `.github/workflows/devsecops.yml` for the GitHub runner, which has a Docker daemon. It was not re-run locally after the image build.
+The unit test covers `greet`. The secret scan searches the tree for an access-key pattern and passed on this app. The image build produced `session17-devsecops:local`, and the container printed `Hello Docker`. Trivy in the workflow scans that image at HIGH and CRITICAL before the Kubernetes manifests are applied.
 
 ![pytest](screenshots/02-pytest.png)
 
 ![pipeline](screenshots/01-pipeline.png)
 
-Do not put cloud keys in this workflow. The scan is there so a committed access key fails the job.
+The secret scan is the gate that stops the job when an access key is committed.

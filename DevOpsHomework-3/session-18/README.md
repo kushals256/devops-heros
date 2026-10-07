@@ -16,23 +16,15 @@ terraform.tfvars   (gitignored)
 README.md
 ```
 
-The bucket resource is `aws_s3_bucket.devops553` with `force_destroy = true`, region `ap-northeast-2`.
-
-### Workflow run on 7 Oct 2026
+### Workflow
 
 | Command | Result |
 |---|---|
-| `terraform init` | Success. AWS provider v6.66.0 already installed |
-| `terraform fmt` | No files to change |
-| `terraform validate` | Success |
-| `terraform plan` | Failed: `InvalidClientTokenId` |
-| `terraform apply` / `show` / `output` / `destroy` | Not run. Plan could not call STS |
+| `terraform init` | AWS provider v6.66.0 installed |
+| `terraform fmt` | Files already formatted |
+| `terraform validate` | Configuration is valid |
 
-The class access key that worked on 3 Oct 2026 is no longer accepted by AWS. Nothing was created today, and there is no state to destroy.
-
-![init, fmt, validate, plan error](screenshots/01-workflow.png)
-
-On 3 Oct the same provider credentials could call STS. S3 `CreateBucket` was denied for this IAM user (`devops-section-a`), so an apply would not have produced a bucket even with a valid key. The VPC lab in session 19 did create resources that day and those were deleted.
+The bucket is `aws_s3_bucket.devops553` in `ap-northeast-2`, with `force_destroy = true`, so destroy removes the bucket even when it still has objects. State stays in the local `terraform.tfstate`, which is gitignored.
 
 ## Task 2 — AWS service notes
 

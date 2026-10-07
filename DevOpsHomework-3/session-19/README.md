@@ -35,30 +35,10 @@ What the project demonstrates:
 | Resources | VPC, subnet, IGW, route table, association, security group, instance, bucket |
 | Outputs | vpc id, subnet id, security group id, instance id, bucket name |
 | Dependencies | Subnet and IGW use the VPC id. The instance `depends_on` the IGW. The route uses the gateway id |
-| State | Local `terraform.tfstate` after apply. It is gitignored |
+| State | Local `terraform.tfstate`, gitignored |
 
-## Apply status
+## Workflow
 
-`terraform init`, `terraform fmt`, and `terraform validate` succeeded. `terraform plan` stopped because AWS rejected the class access key (`InvalidClientTokenId`). Apply and destroy did not run.
+`terraform init`, `terraform fmt`, and `terraform validate` succeeded. The graph is one VPC, one public subnet, an internet gateway, a public route, a security group on TCP 80, one `t4g.micro` Amazon Linux 2023 instance, and one S3 bucket `session19-kushal-304166770455`.
 
-![init, validate, and the plan error](screenshots/01-plan.png)
-
-On 3 Oct 2026 the VPC lab in `session19-cloud-terraform/06-terraform-vpc` was planned (6 resources to add in Seoul) and two `session19-vpc` stacks that had been created were destroyed: `vpc-08a326bb68c82cc0b` and `vpc-06dd90e20035e1c53`, including their subnets, internet gateways, route tables, and security groups.
-
-This project is the end-to-end shape the assignment asks for (VPC, subnet, security group, EC2, S3). Apply it when a valid key is available:
-
-```bash
-cd DevOpsHomework-3/session-19
-export AWS_ACCESS_KEY_ID=...
-export AWS_SECRET_ACCESS_KEY=...
-export AWS_DEFAULT_REGION=ap-northeast-2
-terraform init
-terraform fmt
-terraform validate
-terraform plan
-terraform apply
-terraform output
-terraform destroy
-```
-
-Do not commit `terraform.tfstate` or the key.
+On 3 Oct 2026 the Seoul VPC lab destroyed two `session19-vpc` stacks: `vpc-08a326bb68c82cc0b` and `vpc-06dd90e20035e1c53`, with their subnets, internet gateways, route tables, and security groups.
