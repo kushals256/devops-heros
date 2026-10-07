@@ -195,6 +195,12 @@ Need external access?
 
 ---
 
+## Comparisons, FQDN, and CoreDNS
+
+- [Deployment vs ReplicaSet, DaemonSet, StatefulSet, and Service](comparisons/README.md)
+- [FQDN](fqdn/README.md)
+- [CoreDNS](coredns/README.md)
+
 ## Task 12: Minikube Docker-Driver Gotcha (macOS)
 
 `192.168.49.2:<NodePort>` is inside the Docker bridge. macOS cannot route to it directly.

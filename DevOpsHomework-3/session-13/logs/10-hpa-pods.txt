@@ -1,0 +1,6 @@
++ kubectl get pods -l app=cpu-demo
+NAME                        READY   STATUS    RESTARTS   AGE
+cpu-demo-68f78c458f-299xs   1/1     Running   0          15s
+cpu-demo-68f78c458f-45hcx   1/1     Running   0          15s
+cpu-demo-68f78c458f-dbf4f   1/1     Running   0          2m15s
+cpu-demo-68f78c458f-glrhl   1/1     Running   0          15s

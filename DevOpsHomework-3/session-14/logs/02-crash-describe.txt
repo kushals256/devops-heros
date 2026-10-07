@@ -1,0 +1,60 @@
++ kubectl describe pod fail-1-crashloop-pod
+Name:             fail-1-crashloop-pod
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             minikube/192.168.49.2
+Start Time:       Wed, 07 Oct 2026 18:58:10 +0530
+Labels:           scenario=crashloop
+                  tier=triage-gauntlet
+Annotations:      <none>
+Status:           Pending
+IP:               
+IPs:              <none>
+Containers:
+  python-app:
+    Container ID:  
+    Image:         python:3.11-alpine
+    Image ID:      
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      python3
+      -c
+      import os, sys
+      db_url = os.environ.get("DATABASE_URL")
+      if not db_url:
+          print("[FATAL ERROR]: DATABASE_URL environment variable is MISSING!", file=sys.stderr)
+          sys.exit(1)
+      print("Application started successfully!")
+      
+    State:          Waiting
+      Reason:       ContainerCreating
+    Ready:          False
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-k5k9d (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-k5k9d:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  12s   default-scheduler  Successfully assigned default/fail-1-crashloop-pod to minikube
+  Normal  Pulling    11s   kubelet            spec.containers{python-app}: Pulling image "python:3.11-alpine"

@@ -1,0 +1,3 @@
+NAME                           CPU(cores)   MEMORY(bytes)   
+gitops-demo-67d79c49fd-qggdj   1m           4Mi             
+gitops-demo-67d79c49fd-sj7z5   1m           4Mi             

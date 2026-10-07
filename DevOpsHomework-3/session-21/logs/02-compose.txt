@@ -1,0 +1,14 @@
+$ docker-compose ps
+NAME                          IMAGE                       COMMAND                  SERVICE    CREATED              STATUS                   PORTS
+session21-python-backend-1    session21-python-backend    "sh -c 'i=0; until a…"   backend    About a minute ago   Up About a minute        0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp
+session21-python-frontend-1   session21-python-frontend   "/docker-entrypoint.…"   frontend   About a minute ago   Up About a minute        80/tcp, 0.0.0.0:3000->8080/tcp, [::]:3000->8080/tcp
+session21-python-postgres-1   postgres:16-alpine          "docker-entrypoint.s…"   postgres   2 minutes ago        Up 2 minutes (healthy)   0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp
+
+$ curl -s http://localhost:8000/health
+{"status":"UP"}
+$ curl -s http://localhost:8000/ready
+{"status":"READY"}
+$ curl -s http://localhost:8000/api/tasks/stats
+{"total":2,"todo":1,"inProgress":1,"done":0}
+$ curl -s -o /dev/null -w "%{http_code}" http://localhost:3000/
+200

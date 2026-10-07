@@ -33,6 +33,8 @@ rm softlink.txt
 
 Created `original.txt`, then a hard link and a soft link.
 
+![Same inode for the hard link, arrow for the soft link](screenshots/01-links.png)
+
 - `original.txt` and `hardlink.txt` had the **same inode**. Link count was `2`.
 - `softlink.txt` had a **different inode** and showed as `softlink.txt -> original.txt`.
 - Editing `original.txt` changed what both the hard link and the soft link showed.
@@ -102,6 +104,10 @@ sudo useradd -m -s /bin/bash hwlow
 sudo passwd hwlow
 ```
 
+Screenshot from Ubuntu 24.04. `adduser` created the account, home directory, and group:
+
+![adduser hwtest](screenshots/02-adduser.png)
+
 Remove the test user:
 
 ```bash
@@ -128,6 +134,10 @@ journalctl -k               # kernel only
 ```
 
 ### Check logs for a specific service
+
+`journalctl` is a systemd command. This Mac does not run systemd, so this was run in Ubuntu 24.04. The package is installed (`systemd 255`). A container has no journal files, so a service query returns “No journal files were found.” On a real Ubuntu machine the same command shows that service’s logs.
+
+![journalctl on Ubuntu](screenshots/03-journalctl.png)
 
 ```bash
 # -u = systemd unit name (this is the important one)

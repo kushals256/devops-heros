@@ -34,6 +34,8 @@ Then enter name, roll number, and a directory name.
 
 ## Script run output
 
+![system-info.sh](screenshots/01-script-output.png)
+
 Input given:
 
 ```text

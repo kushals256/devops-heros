@@ -1,0 +1,3 @@
++ kubectl get svc -n kube-system kube-dns -o wide
+NAME       TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)                  AGE   SELECTOR
+kube-dns   ClusterIP   10.96.0.10   <none>        53/UDP,53/TCP,9153/TCP   16m   k8s-app=kube-dns

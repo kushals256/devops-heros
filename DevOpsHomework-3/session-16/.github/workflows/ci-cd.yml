@@ -1,0 +1,39 @@
+name: Session 16 CI/CD
+
+on:
+  push:
+    paths:
+      - "DevOpsHomework-3/session-16/**"
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: DevOpsHomework-3/session-16
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install and test
+        run: |
+          pip install -r requirements.txt
+          pytest -q
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: DevOpsHomework-3/session-16
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: docker build -t session16-cicd:local .
+      - name: Upload Dockerfile as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dockerfile
+          path: DevOpsHomework-3/session-16/Dockerfile

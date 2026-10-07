@@ -1,0 +1,2 @@
+hw-broken-secret repr= b'mypassword\n' has_newline= True
+hw-fixed-secret repr= b'mypassword' has_newline= False

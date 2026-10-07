@@ -48,7 +48,7 @@ session18-terraform-iac/
 
 ### Goal
 
-Use Terraform to create an S3 bucket in `ap-south-1`, inspect state/outputs, verify it in AWS, then destroy it cleanly.
+Use Terraform to create an S3 bucket in `ap-northeast-2` (Seoul), inspect state/outputs, verify it in AWS, then destroy it cleanly.
 
 ### Code Overview
 
@@ -80,7 +80,7 @@ provider "aws" {
 variable "aws_region" {
   type        = string
   description = "AWS region where the S3 bucket will be created."
-  default     = "ap-south-1"
+  default     = "ap-northeast-2"
 }
 
 variable "bucket_name" {

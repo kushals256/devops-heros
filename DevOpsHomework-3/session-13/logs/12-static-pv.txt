@@ -1,0 +1,3 @@
++ kubectl get pv student-pv
+NAME         CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                        STORAGECLASS   VOLUMEATTRIBUTESCLASS   REASON   AGE
+student-pv   1Gi        RWO            Retain           Bound    default/student-static-pvc                  <unset>                          2m36s

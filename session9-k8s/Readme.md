@@ -174,6 +174,16 @@ Short breakdown of Control Plane vs Worker Node components, based on the [offici
 
 ---
 
+## Task 6: Kubernetes Basics tutorial (hands-on)
+
+Ran the basics tutorial steps on Minikube (7 Oct 2026): create a Deployment, expose a NodePort Service, inspect a Pod, scale to 3 replicas, roll the image, then roll back.
+
+The original tutorial image `gcr.io/google-samples/kubernetes-bootcamp` is retired, so this run uses `nginx:1.27` and still covers deploy, explore, expose, scale, and update.
+
+Evidence, commands, and screenshots: `DevOpsHomework-3/session-09/README.md`.
+
+---
+
 ## Resources
 
 - https://kubernetes.io/docs/tutorials/kubernetes-basics/

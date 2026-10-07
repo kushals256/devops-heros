@@ -1,0 +1,61 @@
++ pytest
+
+==================================== ERRORS ====================================
+______________________ ERROR collecting tests/test_app.py ______________________
+ImportError while importing test module '/Users/kushalsacharya/Desktop/devops-heros/DevOpsHomework-3/session-16/tests/test_app.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.14/3.14.8/Frameworks/Python.framework/Versions/3.14/lib/python3.14/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests/test_app.py:2: in <module>
+    from app import add, divide
+E   ModuleNotFoundError: No module named 'app'
+=========================== short test summary info ============================
+ERROR tests/test_app.py
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 0.04s
++ docker build
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+
+
+
+
+
+
+Sending build context to Docker daemon  16.69MB
+
+Step 1/4 : FROM python:3.12-alpine
+3.12-alpine: Pulling from library/python
+08693f0e5690: Pulling fs layer
+32bef0b52008: Pulling fs layer
+a9986cd6f37d: Pulling fs layer
+776bdb191e7f: Pulling fs layer
+a5836d681cbe: Download complete
+cbe4623cf6f2: Download complete
+08693f0e5690: Download complete
+32bef0b52008: Download complete
+a9986cd6f37d: Download complete
+32bef0b52008: Pull complete
+a9986cd6f37d: Pull complete
+776bdb191e7f: Download complete
+08693f0e5690: Pull complete
+776bdb191e7f: Pull complete
+Digest: sha256:1b668429b3511ab407d8e00648891631b0b1a4d7e15e3ca70f38ab5b91ad4ab4
+Status: Downloaded newer image for python:3.12-alpine
+ ---> 1b668429b351
+Step 2/4 : WORKDIR /app
+ ---> Running in 6cb1f575a928
+ ---> Removed intermediate container 6cb1f575a928
+ ---> a471b2b63c02
+Step 3/4 : COPY app.py .
+ ---> ef960e82ac78
+Step 4/4 : CMD ["python", "-c", "from app import add; print('Hello from CI/CD', add(2, 3))"]
+ ---> Running in f7b7feb333dd
+ ---> Removed intermediate container f7b7feb333dd
+ ---> 9c7ab35c104f
+Successfully built 9c7ab35c104f
+Successfully tagged session16-cicd:local
++ docker run
+Hello from CI/CD 5

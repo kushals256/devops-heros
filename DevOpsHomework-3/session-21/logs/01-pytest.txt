@@ -1,0 +1,17 @@
++ pytest -v
+============================= test session starts ==============================
+platform darwin -- Python 3.14.8, pytest-8.3.4, pluggy-1.6.0 -- /Users/kushalsacharya/Desktop/devops-heros/session21-python/backend/.venv/bin/python3.14
+cachedir: .pytest_cache
+rootdir: /Users/kushalsacharya/Desktop/devops-heros/session21-python/backend
+configfile: pytest.ini
+plugins: anyio-4.15.1
+collecting ... collected 6 items
+
+tests/test_api.py::test_health PASSED                                    [ 16%]
+tests/test_api.py::test_ready PASSED                                     [ 33%]
+tests/test_api.py::test_root PASSED                                      [ 50%]
+tests/test_api.py::test_create_list_and_stats PASSED                     [ 66%]
+tests/test_api.py::test_get_update_delete_task PASSED                    [ 83%]
+tests/test_api.py::test_create_task_validation PASSED                    [100%]
+
+============================== 6 passed in 0.35s ===============================

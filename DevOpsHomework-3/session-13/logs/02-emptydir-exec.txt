@@ -1,0 +1,4 @@
++ kubectl exec emptydir-demo -- sh -c echo hello-from-emptydir > /data/note.txt && cat /data/note.txt && ls -l /data
+hello-from-emptydir
+total 4
+-rw-r--r-- 1 root root 20 Oct  7 13:26 note.txt

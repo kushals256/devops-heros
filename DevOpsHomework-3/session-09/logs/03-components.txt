@@ -1,0 +1,14 @@
++ kubectl get pods -A
+NAMESPACE       NAME                                       READY   STATUS      RESTARTS   AGE
+ingress-nginx   ingress-nginx-admission-create-lr665       0/1     Completed   0          15m
+ingress-nginx   ingress-nginx-admission-patch-flmgm        0/1     Completed   0          15m
+ingress-nginx   ingress-nginx-controller-d7cd8c989-d6dkx   1/1     Running     0          15m
+kube-system     coredns-559f6c778d-d2hxk                   1/1     Running     0          15m
+kube-system     etcd-minikube                              1/1     Running     0          15m
+kube-system     kindnet-kht28                              1/1     Running     0          15m
+kube-system     kube-apiserver-minikube                    1/1     Running     0          15m
+kube-system     kube-controller-manager-minikube           1/1     Running     0          15m
+kube-system     kube-proxy-44sxb                           1/1     Running     0          15m
+kube-system     kube-scheduler-minikube                    1/1     Running     0          15m
+kube-system     metrics-server-768f9f6999-4568d            1/1     Running     0          15m
+kube-system     storage-provisioner                        1/1     Running     0          15m

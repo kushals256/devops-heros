@@ -1,0 +1,4 @@
++ kubectl get pods -l tier=triage-gauntlet -o wide
+NAME                   READY   STATUS              RESTARTS   AGE   IP       NODE       NOMINATED NODE   READINESS GATES
+fail-1-crashloop-pod   0/1     ContainerCreating   0          12s   <none>   minikube   <none>           <none>
+fail-2-imagepull-pod   0/1     ContainerCreating   0          12s   <none>   minikube   <none>           <none>

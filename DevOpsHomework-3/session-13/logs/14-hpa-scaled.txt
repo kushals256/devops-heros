@@ -1,0 +1,10 @@
++ kubectl get hpa cpu-demo
+NAME       REFERENCE             TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+cpu-demo   Deployment/cpu-demo   cpu: 389%/40%   1         4         4          3m20s
+
++ kubectl get pods -l app=cpu-demo
+NAME                        READY   STATUS    RESTARTS   AGE
+cpu-demo-68f78c458f-299xs   1/1     Running   0          80s
+cpu-demo-68f78c458f-45hcx   1/1     Running   0          80s
+cpu-demo-68f78c458f-dbf4f   1/1     Running   0          3m20s
+cpu-demo-68f78c458f-glrhl   1/1     Running   0          80s

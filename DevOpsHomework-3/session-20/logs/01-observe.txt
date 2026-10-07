@@ -1,0 +1,15 @@
++ kubectl top nodes
+NAME       CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)   
+minikube   919m         22%      1174Mi          19%         
++ kubectl top pods -l app=gitops-demo
+error: metrics not available yet
++ kubectl logs deploy/gitops-demo --tail=5
+Found 2 pods, using pod/gitops-demo-67d79c49fd-qggdj
+2026/10/07 13:33:22 [notice] 1#1: start worker processes
+2026/10/07 13:33:22 [notice] 1#1: start worker process 29
+2026/10/07 13:33:22 [notice] 1#1: start worker process 30
+2026/10/07 13:33:22 [notice] 1#1: start worker process 31
+2026/10/07 13:33:22 [notice] 1#1: start worker process 32
++ kubectl get deploy gitops-demo
+NAME          READY   UP-TO-DATE   AVAILABLE   AGE
+gitops-demo   2/2     2            2           2s

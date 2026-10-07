@@ -1,0 +1,9 @@
++ kubectl get pv,pvc
+NAME                                                        CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM                 STORAGECLASS   VOLUMEATTRIBUTESCLASS   REASON   AGE
+persistentvolume/pvc-597a9f1a-7e44-4a55-8614-daa02565b713   500Mi      RWO            Delete           Bound       default/dynamic-pvc   standard       <unset>                          10s
+persistentvolume/pvc-8671ed01-12f6-47dd-8211-e37d19a0fa53   500Mi      RWO            Delete           Bound       default/student-pvc   standard       <unset>                          10s
+persistentvolume/student-pv                                 1Gi        RWO            Retain           Available                                        <unset>                          10s
+
+NAME                                STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/dynamic-pvc   Bound    pvc-597a9f1a-7e44-4a55-8614-daa02565b713   500Mi      RWO            standard       <unset>                 10s
+persistentvolumeclaim/student-pvc   Bound    pvc-8671ed01-12f6-47dd-8211-e37d19a0fa53   500Mi      RWO            standard       <unset>                 10s

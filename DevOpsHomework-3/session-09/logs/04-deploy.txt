@@ -1,0 +1,9 @@
++ kubectl get deploy,po,svc -l app=kubernetes-bootcamp -o wide
+NAME                                  READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES       SELECTOR
+deployment.apps/kubernetes-bootcamp   1/1     1            1           36s   nginx        nginx:1.27   app=kubernetes-bootcamp
+
+NAME                                       READY   STATUS    RESTARTS   AGE   IP           NODE       NOMINATED NODE   READINESS GATES
+pod/kubernetes-bootcamp-5959ff7698-pq55j   1/1     Running   0          36s   10.244.0.7   minikube   <none>           <none>
+
+NAME                          TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE   SELECTOR
+service/kubernetes-bootcamp   NodePort   10.109.227.70   <none>        80:30877/TCP   36s   app=kubernetes-bootcamp

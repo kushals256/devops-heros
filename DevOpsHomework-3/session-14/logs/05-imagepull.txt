@@ -1,0 +1,55 @@
++ kubectl describe pod fail-2-imagepull-pod
+Name:             fail-2-imagepull-pod
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             minikube/192.168.49.2
+Start Time:       Wed, 07 Oct 2026 18:58:10 +0530
+Labels:           scenario=imagepull
+                  tier=triage-gauntlet
+Annotations:      <none>
+Status:           Pending
+IP:               10.244.0.24
+IPs:
+  IP:  10.244.0.24
+Containers:
+  web-app:
+    Container ID:   
+    Image:          yatri-api-service:v999-invalid-tag-does-not-exist
+    Image ID:       
+    Port:           <none>
+    Host Port:      <none>
+    State:          Waiting
+      Reason:       ErrImagePull
+    Ready:          False
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-b9dh8 (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-b9dh8:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age   From               Message
+  ----     ------     ----  ----               -------
+  Normal   Scheduled  21s   default-scheduler  Successfully assigned default/fail-2-imagepull-pod to minikube
+  Normal   Pulling    20s   kubelet            spec.containers{web-app}: Pulling image "yatri-api-service:v999-invalid-tag-does-not-exist"
+  Warning  Failed     5s    kubelet            spec.containers{web-app}: Failed to pull image "yatri-api-service:v999-invalid-tag-does-not-exist": failed to pull and unpack image "docker.io/library/yatri-api-service:v999-invalid-tag-does-not-exist": failed to resolve reference "docker.io/library/yatri-api-service:v999-invalid-tag-does-not-exist": pull access denied, repository does not exist or may require authorization: server message: insufficient_scope: authorization failed
+  Warning  Failed     5s    kubelet            spec.containers{web-app}: Error: ErrImagePull
+  Normal   BackOff    5s    kubelet            spec.containers{web-app}: Back-off pulling image "yatri-api-service:v999-invalid-tag-does-not-exist"
+  Warning  Failed     5s    kubelet            spec.containers{web-app}: Error: ImagePullBackOff

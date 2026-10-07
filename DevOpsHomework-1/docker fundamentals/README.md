@@ -50,4 +50,18 @@ Open:
 
 ## Verified
 
-All six images were built and run. `curl` showed Hello World on each page (React serves it from the JS bundle).
+All six images were built and run. Each page shows Hello World.
+
+![curl of all six apps](screenshots/01-hello-world.png)
+
+![Node.js](screenshots/02-nodejs.png)
+
+![Python](screenshots/03-python.png)
+
+![Java](screenshots/04-java.png)
+
+![Apache](screenshots/05-apache.png)
+
+![React](screenshots/06-react.png)
+
+![Nginx](screenshots/07-nginx.png)

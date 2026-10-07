@@ -1,0 +1,14 @@
++ kubectl get hpa,pods
+NAME                                           REFERENCE             TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/cpu-demo   Deployment/cpu-demo   cpu: <unknown>/40%   1         4         1          20s
+horizontalpodautoscaler.autoscaling/hpa-demo   Deployment/hpa-demo   cpu: <unknown>/50%   1         5         1          20s
+
+NAME                                       READY   STATUS    RESTARTS   AGE
+pod/cpu-demo-68f78c458f-dbf4f              1/1     Running   0          20s
+pod/emptydir-demo                          1/1     Running   0          48s
+pod/hostpath-demo                          1/1     Running   0          48s
+pod/hpa-demo-5d6676989b-vmsxr              1/1     Running   0          20s
+pod/kubernetes-bootcamp-5959ff7698-5vvrk   1/1     Running   0          48s
+pod/kubernetes-bootcamp-5959ff7698-75bzb   1/1     Running   0          50s
+pod/kubernetes-bootcamp-5959ff7698-g4lgz   1/1     Running   0          49s
+pod/storage-demo                           1/1     Running   0          39s

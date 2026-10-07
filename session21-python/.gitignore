@@ -1,6 +1,11 @@
 .idea/
 .vscode/
 node_modules/
+__pycache__/
+.venv/
+.pytest_cache/
+*.pyc
+test.db
 dist/
 target/
 *.log

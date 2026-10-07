@@ -1,0 +1,2 @@
++ kubectl logs fail-1-crashloop-pod --tail=20
+Error from server (BadRequest): container "python-app" in pod "fail-1-crashloop-pod" is waiting to start: ContainerCreating

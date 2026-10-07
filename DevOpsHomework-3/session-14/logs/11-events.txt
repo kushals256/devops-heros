@@ -1,0 +1,150 @@
++ kubectl get events --sort-by=.lastTimestamp
+LAST SEEN   TYPE      REASON                         OBJECT                                      MESSAGE
+18m         Normal    Starting                       node/minikube                               
+18m         Normal    NodeHasSufficientPID           node/minikube                               Node minikube status is now: NodeHasSufficientPID
+18m         Normal    NodeHasNoDiskPressure          node/minikube                               Node minikube status is now: NodeHasNoDiskPressure
+18m         Normal    NodeHasSufficientMemory        node/minikube                               Node minikube status is now: NodeHasSufficientMemory
+18m         Normal    NodeAllocatableEnforced        node/minikube                               Updated Node Allocatable limit across pods
+18m         Normal    Starting                       node/minikube                               Starting kubelet.
+18m         Normal    RegisteredNode                 node/minikube                               Node minikube event: Registered Node minikube in Controller
+18m         Normal    NodeReady                      node/minikube                               Node minikube status is now: NodeReady
+2m52s       Normal    Scheduled                      pod/kubernetes-bootcamp-5959ff7698-pq55j    Successfully assigned default/kubernetes-bootcamp-5959ff7698-pq55j to minikube
+2m52s       Normal    SuccessfulCreate               replicaset/kubernetes-bootcamp-5959ff7698   Created pod: kubernetes-bootcamp-5959ff7698-pq55j
+2m52s       Normal    Pulling                        pod/kubernetes-bootcamp-5959ff7698-pq55j    Pulling image "nginx:1.27"
+2m17s       Normal    Pulled                         pod/kubernetes-bootcamp-5959ff7698-pq55j    Successfully pulled image "nginx:1.27" in 35.131s (35.131s including waiting). Image size: 68857691 bytes.
+2m16s       Normal    Created                        pod/kubernetes-bootcamp-5959ff7698-pq55j    Container created
+2m16s       Normal    Started                        pod/kubernetes-bootcamp-5959ff7698-pq55j    Container started
+2m16s       Normal    Scheduled                      pod/kubernetes-bootcamp-5959ff7698-rwv6g    Successfully assigned default/kubernetes-bootcamp-5959ff7698-rwv6g to minikube
+2m16s       Normal    ScalingReplicaSet              deployment/kubernetes-bootcamp              Scaled up replica set kubernetes-bootcamp-5959ff7698 from 1 to 3
+2m16s       Normal    Pulled                         pod/kubernetes-bootcamp-5959ff7698-rwv6g    Container image "nginx:1.27" already present on machine and can be accessed by the pod
+2m16s       Normal    Created                        pod/kubernetes-bootcamp-5959ff7698-2b79f    Container created
+2m16s       Normal    Scheduled                      pod/kubernetes-bootcamp-5959ff7698-2b79f    Successfully assigned default/kubernetes-bootcamp-5959ff7698-2b79f to minikube
+2m16s       Normal    Created                        pod/kubernetes-bootcamp-5959ff7698-rwv6g    Container created
+2m16s       Normal    Started                        pod/kubernetes-bootcamp-5959ff7698-rwv6g    Container started
+2m16s       Normal    Started                        pod/kubernetes-bootcamp-5959ff7698-2b79f    Container started
+2m16s       Normal    SuccessfulCreate               replicaset/kubernetes-bootcamp-5959ff7698   Created pod: kubernetes-bootcamp-5959ff7698-rwv6g
+2m16s       Normal    SuccessfulCreate               replicaset/kubernetes-bootcamp-5959ff7698   Created pod: kubernetes-bootcamp-5959ff7698-2b79f
+2m16s       Normal    Pulled                         pod/kubernetes-bootcamp-5959ff7698-2b79f    Container image "nginx:1.27" already present on machine and can be accessed by the pod
+2m15s       Normal    Scheduled                      pod/kubernetes-bootcamp-5f476ffd78-mcsgd    Successfully assigned default/kubernetes-bootcamp-5f476ffd78-mcsgd to minikube
+2m15s       Normal    ScalingReplicaSet              deployment/kubernetes-bootcamp              Scaled up replica set kubernetes-bootcamp-5f476ffd78 from 0 to 1
+2m15s       Normal    SuccessfulCreate               replicaset/kubernetes-bootcamp-5f476ffd78   Created pod: kubernetes-bootcamp-5f476ffd78-mcsgd
+2m14s       Normal    Pulling                        pod/kubernetes-bootcamp-5f476ffd78-mcsgd    Pulling image "nginx:1.27-alpine"
+2m1s        Normal    Pulled                         pod/kubernetes-bootcamp-5f476ffd78-mcsgd    Successfully pulled image "nginx:1.27-alpine" in 13.695s (13.695s including waiting). Image size: 21832241 bytes.
+2m1s        Normal    Created                        pod/kubernetes-bootcamp-5f476ffd78-mcsgd    Container created
+2m1s        Normal    Started                        pod/kubernetes-bootcamp-5f476ffd78-mcsgd    Container started
+2m1s        Normal    ScalingReplicaSet              deployment/kubernetes-bootcamp              Scaled down replica set kubernetes-bootcamp-5959ff7698 from 3 to 2
+2m          Normal    SuccessfulDelete               replicaset/kubernetes-bootcamp-5959ff7698   Deleted pod: kubernetes-bootcamp-5959ff7698-2b79f
+2m          Normal    Killing                        pod/kubernetes-bootcamp-5959ff7698-2b79f    Stopping container nginx
+2m          Normal    SuccessfulCreate               replicaset/kubernetes-bootcamp-5f476ffd78   Created pod: kubernetes-bootcamp-5f476ffd78-mgqt8
+2m          Normal    ScalingReplicaSet              deployment/kubernetes-bootcamp              Scaled up replica set kubernetes-bootcamp-5f476ffd78 from 1 to 2
+119s        Normal    Scheduled                      pod/kubernetes-bootcamp-5f476ffd78-mgqt8    Successfully assigned default/kubernetes-bootcamp-5f476ffd78-mgqt8 to minikube
+118s        Normal    ScalingReplicaSet              deployment/kubernetes-bootcamp              Scaled down replica set kubernetes-bootcamp-5959ff7698 from 2 to 1
+118s        Normal    Started                        pod/kubernetes-bootcamp-5f476ffd78-6lhgk    Container started
+118s        Normal    Killing                        pod/kubernetes-bootcamp-5959ff7698-rwv6g    Stopping container nginx
+118s        Normal    SuccessfulCreate               replicaset/kubernetes-bootcamp-5f476ffd78   Created pod: kubernetes-bootcamp-5f476ffd78-6lhgk
+118s        Normal    Started                        pod/kubernetes-bootcamp-5f476ffd78-mgqt8    Container started
+118s        Normal    Created                        pod/kubernetes-bootcamp-5f476ffd78-mgqt8    Container created
+118s        Normal    Pulled                         pod/kubernetes-bootcamp-5f476ffd78-mgqt8    Container image "nginx:1.27-alpine" already present on machine and can be accessed by the pod
+118s        Normal    ScalingReplicaSet              deployment/kubernetes-bootcamp              Scaled up replica set kubernetes-bootcamp-5f476ffd78 from 2 to 3
+118s        Normal    ScalingReplicaSet              deployment/kubernetes-bootcamp              Scaled down replica set kubernetes-bootcamp-5959ff7698 from 1 to 0
+118s        Normal    SuccessfulDelete               replicaset/kubernetes-bootcamp-5959ff7698   Deleted pod: kubernetes-bootcamp-5959ff7698-rwv6g
+118s        Normal    Created                        pod/kubernetes-bootcamp-5f476ffd78-6lhgk    Container created
+118s        Normal    Pulled                         pod/kubernetes-bootcamp-5f476ffd78-6lhgk    Container image "nginx:1.27-alpine" already present on machine and can be accessed by the pod
+118s        Normal    Scheduled                      pod/kubernetes-bootcamp-5f476ffd78-6lhgk    Successfully assigned default/kubernetes-bootcamp-5f476ffd78-6lhgk to minikube
+118s        Normal    Killing                        pod/kubernetes-bootcamp-5959ff7698-pq55j    Stopping container nginx
+118s        Normal    SuccessfulDelete               replicaset/kubernetes-bootcamp-5959ff7698   Deleted pod: kubernetes-bootcamp-5959ff7698-pq55j
+117s        Normal    SuccessfulCreate               replicaset/kubernetes-bootcamp-5959ff7698   Created pod: kubernetes-bootcamp-5959ff7698-75bzb
+117s        Normal    Scheduled                      pod/kubernetes-bootcamp-5959ff7698-75bzb    Successfully assigned default/kubernetes-bootcamp-5959ff7698-75bzb to minikube
+117s        Normal    ScalingReplicaSet              deployment/kubernetes-bootcamp              Scaled up replica set kubernetes-bootcamp-5959ff7698 from 0 to 1
+116s        Normal    SuccessfulCreate               replicaset/kubernetes-bootcamp-5959ff7698   Created pod: kubernetes-bootcamp-5959ff7698-g4lgz
+116s        Normal    Pulled                         pod/kubernetes-bootcamp-5959ff7698-75bzb    Container image "nginx:1.27" already present on machine and can be accessed by the pod
+116s        Normal    Created                        pod/kubernetes-bootcamp-5959ff7698-75bzb    Container created
+116s        Normal    Started                        pod/kubernetes-bootcamp-5959ff7698-75bzb    Container started
+116s        Normal    Scheduled                      pod/kubernetes-bootcamp-5959ff7698-g4lgz    Successfully assigned default/kubernetes-bootcamp-5959ff7698-g4lgz to minikube
+116s        Normal    Killing                        pod/kubernetes-bootcamp-5f476ffd78-6lhgk    Stopping container nginx
+116s        Normal    ScalingReplicaSet              deployment/kubernetes-bootcamp              Scaled down replica set kubernetes-bootcamp-5f476ffd78 from 3 to 2
+116s        Normal    SuccessfulDelete               replicaset/kubernetes-bootcamp-5f476ffd78   Deleted pod: kubernetes-bootcamp-5f476ffd78-6lhgk
+115s        Normal    Created                        pod/kubernetes-bootcamp-5959ff7698-5vvrk    Container created
+115s        Normal    Pulled                         pod/emptydir-demo                           Container image "nginx:1.27" already present on machine and can be accessed by the pod
+115s        Normal    SuccessfulDelete               replicaset/kubernetes-bootcamp-5f476ffd78   Deleted pod: kubernetes-bootcamp-5f476ffd78-mgqt8
+115s        Normal    Scheduled                      pod/emptydir-demo                           Successfully assigned default/emptydir-demo to minikube
+115s        Normal    Killing                        pod/kubernetes-bootcamp-5f476ffd78-mgqt8    Stopping container nginx
+115s        Normal    Killing                        pod/kubernetes-bootcamp-5f476ffd78-mcsgd    Stopping container nginx
+115s        Normal    Created                        pod/emptydir-demo                           Container created
+115s        Normal    Started                        pod/emptydir-demo                           Container started
+115s        Normal    Scheduled                      pod/hostpath-demo                           Successfully assigned default/hostpath-demo to minikube
+115s        Normal    ScalingReplicaSet              deployment/kubernetes-bootcamp              (combined from similar events): Scaled down replica set kubernetes-bootcamp-5f476ffd78 from 1 to 0
+115s        Normal    Started                        pod/kubernetes-bootcamp-5959ff7698-g4lgz    Container started
+115s        Normal    Created                        pod/kubernetes-bootcamp-5959ff7698-g4lgz    Container created
+115s        Normal    Pulled                         pod/kubernetes-bootcamp-5959ff7698-g4lgz    Container image "nginx:1.27" already present on machine and can be accessed by the pod
+115s        Normal    Started                        pod/kubernetes-bootcamp-5959ff7698-5vvrk    Container started
+115s        Normal    SuccessfulCreate               replicaset/kubernetes-bootcamp-5959ff7698   Created pod: kubernetes-bootcamp-5959ff7698-5vvrk
+115s        Normal    SuccessfulDelete               replicaset/kubernetes-bootcamp-5f476ffd78   Deleted pod: kubernetes-bootcamp-5f476ffd78-mcsgd
+115s        Normal    Pulled                         pod/kubernetes-bootcamp-5959ff7698-5vvrk    Container image "nginx:1.27" already present on machine and can be accessed by the pod
+115s        Normal    Scheduled                      pod/kubernetes-bootcamp-5959ff7698-5vvrk    Successfully assigned default/kubernetes-bootcamp-5959ff7698-5vvrk to minikube
+114s        Normal    Pulled                         pod/hostpath-demo                           Container image "nginx:1.27" already present on machine and can be accessed by the pod
+114s        Normal    Started                        pod/hostpath-demo                           Container started
+114s        Normal    Created                        pod/hostpath-demo                           Container created
+106s        Normal    Provisioning                   persistentvolumeclaim/student-pvc           External provisioner is provisioning volume for claim "default/student-pvc"
+106s        Normal    ProvisioningSucceeded          persistentvolumeclaim/dynamic-pvc           Successfully provisioned volume pvc-597a9f1a-7e44-4a55-8614-daa02565b713
+106s        Normal    Pulled                         pod/storage-demo                            Container image "nginx:1.27" already present on machine and can be accessed by the pod
+106s        Normal    Created                        pod/storage-demo                            Container created
+106s        Normal    Provisioning                   persistentvolumeclaim/dynamic-pvc           External provisioner is provisioning volume for claim "default/dynamic-pvc"
+106s        Normal    ExternalProvisioning           persistentvolumeclaim/dynamic-pvc           Waiting for a volume to be created either by the external provisioner 'k8s.io/minikube-hostpath' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+106s        Normal    ProvisioningSucceeded          persistentvolumeclaim/student-pvc           Successfully provisioned volume pvc-8671ed01-12f6-47dd-8211-e37d19a0fa53
+106s        Normal    ExternalProvisioning           persistentvolumeclaim/student-pvc           Waiting for a volume to be created either by the external provisioner 'k8s.io/minikube-hostpath' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+106s        Normal    Scheduled                      pod/storage-demo                            Successfully assigned default/storage-demo to minikube
+106s        Normal    Started                        pod/storage-demo                            Container started
+87s         Normal    SuccessfulCreate               replicaset/cpu-demo-68f78c458f              Created pod: cpu-demo-68f78c458f-dbf4f
+87s         Normal    ScalingReplicaSet              deployment/hpa-demo                         Scaled up replica set hpa-demo-5d6676989b from 0 to 1
+87s         Normal    SuccessfulCreate               replicaset/hpa-demo-5d6676989b              Created pod: hpa-demo-5d6676989b-vmsxr
+87s         Normal    Started                        pod/hpa-demo-5d6676989b-vmsxr               Container started
+87s         Normal    Pulling                        pod/cpu-demo-68f78c458f-dbf4f               Pulling image "python:3.12-alpine"
+87s         Normal    Scheduled                      pod/hpa-demo-5d6676989b-vmsxr               Successfully assigned default/hpa-demo-5d6676989b-vmsxr to minikube
+87s         Normal    ScalingReplicaSet              deployment/cpu-demo                         Scaled up replica set cpu-demo-68f78c458f from 0 to 1
+87s         Normal    Created                        pod/hpa-demo-5d6676989b-vmsxr               Container created
+87s         Normal    Pulled                         pod/hpa-demo-5d6676989b-vmsxr               Container image "nginx:1.27" already present on machine and can be accessed by the pod
+87s         Normal    Scheduled                      pod/cpu-demo-68f78c458f-dbf4f               Successfully assigned default/cpu-demo-68f78c458f-dbf4f to minikube
+73s         Normal    Started                        pod/cpu-demo-68f78c458f-dbf4f               Container started
+73s         Normal    Created                        pod/cpu-demo-68f78c458f-dbf4f               Container created
+73s         Normal    Pulled                         pod/cpu-demo-68f78c458f-dbf4f               Successfully pulled image "python:3.12-alpine" in 13.583s (13.583s including waiting). Image size: 21423636 bytes.
+42s         Warning   FailedGetResourceMetric        horizontalpodautoscaler/hpa-demo            failed to get cpu utilization: unable to get metrics for resource cpu: no metrics returned from resource metrics API
+42s         Warning   FailedComputeMetricsReplicas   horizontalpodautoscaler/cpu-demo            invalid metrics (1 invalid out of 1), first error is: failed to get cpu resource metric value: failed to get cpu utilization: unable to get metrics for resource cpu: no metrics returned from resource metrics API
+42s         Warning   FailedComputeMetricsReplicas   horizontalpodautoscaler/hpa-demo            invalid metrics (1 invalid out of 1), first error is: failed to get cpu resource metric value: failed to get cpu utilization: unable to get metrics for resource cpu: no metrics returned from resource metrics API
+42s         Warning   FailedGetResourceMetric        horizontalpodautoscaler/cpu-demo            failed to get cpu utilization: unable to get metrics for resource cpu: no metrics returned from resource metrics API
+26s         Normal    Scheduled                      pod/fail-1-crashloop-pod                    Successfully assigned default/fail-1-crashloop-pod to minikube
+26s         Normal    Scheduled                      pod/fail-2-imagepull-pod                    Successfully assigned default/fail-2-imagepull-pod to minikube
+25s         Normal    Pulling                        pod/fail-1-crashloop-pod                    Pulling image "python:3.11-alpine"
+25s         Normal    Pulling                        pod/fail-2-imagepull-pod                    Pulling image "yatri-api-service:v999-invalid-tag-does-not-exist"
+13s         Normal    Pulling                        pod/fail-1-crashloop-pod                    Pulling image "python:3.11-alpine"
+13s         Normal    Scheduled                      pod/fail-1-crashloop-pod                    Successfully assigned default/fail-1-crashloop-pod to minikube
+12s         Warning   FailedComputeMetricsReplicas   horizontalpodautoscaler/cpu-demo            invalid metrics (1 invalid out of 1), first error is: failed to get cpu resource metric value: failed to get cpu utilization: did not receive metrics for targeted pods (pods might be unready)
+12s         Normal    Started                        pod/fail-1-crashloop-pod                    Container started
+12s         Normal    Created                        pod/fail-1-crashloop-pod                    Container created
+12s         Warning   FailedGetResourceMetric        horizontalpodautoscaler/cpu-demo            failed to get cpu utilization: did not receive metrics for targeted pods (pods might be unready)
+12s         Normal    Killing                        pod/fail-1-crashloop-pod                    Stopping container python-app
+12s         Normal    Pulled                         pod/fail-1-crashloop-pod                    Successfully pulled image "python:3.11-alpine" in 13.739s (13.739s including waiting). Image size: 23808448 bytes.
+10s         Warning   Failed                         pod/fail-2-imagepull-pod                    Failed to pull image "yatri-api-service:v999-invalid-tag-does-not-exist": failed to pull and unpack image "docker.io/library/yatri-api-service:v999-invalid-tag-does-not-exist": failed to resolve reference "docker.io/library/yatri-api-service:v999-invalid-tag-does-not-exist": pull access denied, repository does not exist or may require authorization: server message: insufficient_scope: authorization failed
+10s         Warning   Failed                         pod/fail-2-imagepull-pod                    Error: ImagePullBackOff
+10s         Warning   Failed                         pod/fail-2-imagepull-pod                    Error: ErrImagePull
+10s         Normal    BackOff                        pod/fail-2-imagepull-pod                    Back-off pulling image "yatri-api-service:v999-invalid-tag-does-not-exist"
+9s          Normal    Started                        pod/fail-1-crashloop-pod                    Container started
+9s          Normal    Created                        pod/fail-1-crashloop-pod                    Container created
+9s          Normal    Pulled                         pod/fail-1-crashloop-pod                    Successfully pulled image "python:3.11-alpine" in 1.403s (3.791s including waiting). Image size: 23808448 bytes.
+5s          Normal    ScalingReplicaSet              deployment/troubleshooting-app              Scaled up replica set troubleshooting-app-59d4957864 from 0 to 2
+5s          Normal    SuccessfulCreate               replicaset/troubleshooting-app-59d4957864   Created pod: troubleshooting-app-59d4957864-tx7z8
+5s          Normal    SuccessfulCreate               replicaset/troubleshooting-app-59d4957864   Created pod: troubleshooting-app-59d4957864-gwtw6
+5s          Normal    Scheduled                      pod/project-broken-pod                      Successfully assigned default/project-broken-pod to minikube
+5s          Normal    Pulled                         pod/troubleshooting-app-59d4957864-tx7z8    Container image "nginx:1.27" already present on machine and can be accessed by the pod
+5s          Normal    Scheduled                      pod/troubleshooting-app-59d4957864-tx7z8    Successfully assigned default/troubleshooting-app-59d4957864-tx7z8 to minikube
+5s          Normal    Scheduled                      pod/troubleshooting-app-59d4957864-gwtw6    Successfully assigned default/troubleshooting-app-59d4957864-gwtw6 to minikube
+5s          Normal    Pulled                         pod/troubleshooting-app-59d4957864-gwtw6    Container image "nginx:1.27" already present on machine and can be accessed by the pod
+4s          Normal    Started                        pod/troubleshooting-app-59d4957864-gwtw6    Container started
+4s          Normal    Pulling                        pod/project-broken-pod                      Pulling image "nginx:this-tag-does-not-exist"
+4s          Normal    Created                        pod/troubleshooting-app-59d4957864-gwtw6    Container created
+4s          Normal    Created                        pod/troubleshooting-app-59d4957864-tx7z8    Container created
+4s          Normal    Started                        pod/troubleshooting-app-59d4957864-tx7z8    Container started
+3s          Warning   Failed                         pod/project-broken-pod                      Error: ErrImagePull
+3s          Warning   Failed                         pod/project-broken-pod                      Failed to pull image "nginx:this-tag-does-not-exist": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/library/nginx:this-tag-does-not-exist": failed to resolve reference "docker.io/library/nginx:this-tag-does-not-exist": docker.io/library/nginx:this-tag-does-not-exist: not found
+2s          Normal    BackOff                        pod/project-broken-pod                      Back-off pulling image "nginx:this-tag-does-not-exist"
+2s          Warning   Failed                         pod/project-broken-pod                      Error: ImagePullBackOff

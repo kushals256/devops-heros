@@ -1,1 +1,2 @@
-original file content
+session data
+extra

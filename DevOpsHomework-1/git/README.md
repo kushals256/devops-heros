@@ -172,6 +172,12 @@ $ git log --oneline feature/login
 
 ---
 
+## Screenshot
+
+Fresh run of `git commit -m` (does nothing until the file is staged), `git commit -a -m` (commits the tracked edit), then cherry-pick of the feature commit onto `main`. `feature.txt` is present on `main` afterward.
+
+![commit -a and cherry-pick](screenshots/01-commit-and-cherry-pick.png)
+
 ## What I understood
 
 - `git commit -m` = commit what is staged.

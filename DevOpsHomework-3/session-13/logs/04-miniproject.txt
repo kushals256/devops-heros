@@ -1,0 +1,16 @@
++ kubectl -n production-webapp get deploy,po,svc,pvc,hpa -o wide
+NAME                      READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES       SELECTOR
+deployment.apps/web-app   2/2     2            2           9s    nginx        nginx:1.27   app=web-app
+
+NAME                          READY   STATUS    RESTARTS   AGE   IP            NODE       NOMINATED NODE   READINESS GATES
+pod/web-app-d45775485-t5bvd   1/1     Running   0          9s    10.244.0.19   minikube   <none>           <none>
+pod/web-app-d45775485-xjf2m   1/1     Running   0          9s    10.244.0.20   minikube   <none>           <none>
+
+NAME                  TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE   SELECTOR
+service/web-service   ClusterIP   10.96.227.147   <none>        80/TCP    9s    app=web-app
+
+NAME                             STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE   VOLUMEMODE
+persistentvolumeclaim/web-data   Bound    pvc-86765d03-5f0c-4134-a900-3af26dc9cd35   500Mi      RWO            standard       <unset>                 9s    Filesystem
+
+NAME                                              REFERENCE            TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: <unknown>/50%   2         5         2          9s

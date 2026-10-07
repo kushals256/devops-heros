@@ -1,0 +1,45 @@
++ pytest
+
+==================================== ERRORS ====================================
+______________________ ERROR collecting tests/test_app.py ______________________
+ImportError while importing test module '/Users/kushalsacharya/Desktop/devops-heros/DevOpsHomework-3/session-17/tests/test_app.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.14/3.14.8/Frameworks/Python.framework/Versions/3.14/lib/python3.14/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests/test_app.py:1: in <module>
+    from app import greet
+E   ModuleNotFoundError: No module named 'app'
+=========================== short test summary info ============================
+ERROR tests/test_app.py
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 0.04s
++ secret scan
+secret scan passed
++ docker build
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+
+
+
+
+
+
+Sending build context to Docker daemon  16.69MB
+
+Step 1/4 : FROM python:3.12-alpine
+ ---> 1b668429b351
+Step 2/4 : WORKDIR /app
+ ---> Using cache
+ ---> a471b2b63c02
+Step 3/4 : COPY app.py .
+ ---> 3167cf965b37
+Step 4/4 : CMD ["python", "-c", "from app import greet; print(greet('Docker'))"]
+ ---> Running in 19fc7e86cfd6
+ ---> Removed intermediate container 19fc7e86cfd6
+ ---> b78a55697b50
+Successfully built b78a55697b50
+Successfully tagged session17-devsecops:local
++ docker run
+Hello Docker

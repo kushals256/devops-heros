@@ -1,0 +1,3 @@
++ kubectl get hpa cpu-demo
+NAME       REFERENCE             TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+cpu-demo   Deployment/cpu-demo   cpu: <unknown>/40%   1         4         1          61s

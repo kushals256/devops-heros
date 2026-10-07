@@ -1,0 +1,3 @@
++ kubectl get pvc student-static-pvc
+NAME                 STATUS   VOLUME       CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+student-static-pvc   Bound    student-pv   1Gi        RWO                           <unset>                 3s

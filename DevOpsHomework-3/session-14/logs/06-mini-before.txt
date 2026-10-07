@@ -1,0 +1,28 @@
++ kubectl get pods,svc,endpoints
+Warning: v1 Endpoints is deprecated in v1.33+; use discovery.k8s.io/v1 EndpointSlice
+NAME                                       READY   STATUS              RESTARTS   AGE
+pod/cpu-demo-68f78c458f-dbf4f              1/1     Running             0          83s
+pod/emptydir-demo                          1/1     Running             0          111s
+pod/fail-1-crashloop-pod                   1/1     Running             0          9s
+pod/fail-2-imagepull-pod                   0/1     ErrImagePull        0          22s
+pod/hostpath-demo                          1/1     Running             0          111s
+pod/hpa-demo-5d6676989b-vmsxr              1/1     Running             0          83s
+pod/kubernetes-bootcamp-5959ff7698-5vvrk   1/1     Running             0          111s
+pod/kubernetes-bootcamp-5959ff7698-75bzb   1/1     Running             0          113s
+pod/kubernetes-bootcamp-5959ff7698-g4lgz   1/1     Running             0          112s
+pod/project-broken-pod                     0/1     ContainerCreating   0          1s
+pod/storage-demo                           1/1     Running             0          102s
+pod/troubleshooting-app-59d4957864-gwtw6   1/1     Running             0          1s
+pod/troubleshooting-app-59d4957864-tx7z8   1/1     Running             0          1s
+
+NAME                              TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+service/hpa-demo-service          ClusterIP   10.104.111.194   <none>        80/TCP         83s
+service/kubernetes                ClusterIP   10.96.0.1        <none>        443/TCP        18m
+service/kubernetes-bootcamp       NodePort    10.109.227.70    <none>        80:30877/TCP   2m48s
+service/troubleshooting-service   ClusterIP   10.110.41.27     <none>        80/TCP         1s
+
+NAME                                ENDPOINTS                                      AGE
+endpoints/hpa-demo-service          10.244.0.21:80                                 83s
+endpoints/kubernetes                192.168.49.2:8443                              18m
+endpoints/kubernetes-bootcamp       10.244.0.13:80,10.244.0.14:80,10.244.0.15:80   2m48s
+endpoints/troubleshooting-service   10.244.0.26:80,10.244.0.27:80                  1s

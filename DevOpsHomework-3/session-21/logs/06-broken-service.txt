@@ -1,0 +1,5 @@
+$ kubectl get endpoints broken-service -n taskboard
+NAME             ENDPOINTS   AGE
+broken-service   <none>      2s
+
+Endpoints are empty because the selector matches no pods.

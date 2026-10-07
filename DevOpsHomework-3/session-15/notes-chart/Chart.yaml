@@ -1,0 +1,6 @@
+apiVersion: v2
+name: notes-chart
+description: Session 15 mini project — Notes web app
+type: application
+version: 0.1.0
+appVersion: "1.0"

@@ -1,0 +1,8 @@
++ kubectl top pods
+NAME                                   CPU(cores)   MEMORY(bytes)   
+emptydir-demo                          2m           4Mi             
+hostpath-demo                          2m           4Mi             
+kubernetes-bootcamp-5959ff7698-5vvrk   1m           4Mi             
+kubernetes-bootcamp-5959ff7698-75bzb   3m           4Mi             
+kubernetes-bootcamp-5959ff7698-g4lgz   2m           4Mi             
+storage-demo                           2m           4Mi             

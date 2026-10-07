@@ -225,6 +225,24 @@ bash cleanup.sh
 
 ---
 
+## Task 5: Troubleshooting — trailing newline in a Secret
+
+The course troubleshooting note is `session-12-ingress-configmaps-secrets/troubleshooting/secret-base64-gotcha.md`.
+
+**Problem:** `echo "mypassword" | base64` includes a newline, so the stored value is `mypassword\n`. A database then rejects the password.
+
+**Before:** Secret `hw-broken-secret` data `bXlwYXNzd29yZAo=` decodes to `b'mypassword\n'`.
+
+**Fix:** `echo -n "mypassword" | base64` → `bXlwYXNzd29yZA==`.
+
+**After:** Secret `hw-fixed-secret` decodes to `b'mypassword'` with no newline.
+
+Do not commit real Secret values. These lab passwords are fake.
+
+![Secret newline before and after](../../DevOpsHomework-3/session-12/screenshots/04-newline-compare.png)
+
+---
+
 ## Quick Map: ConfigMap vs Secret vs Ingress
 
 | Object | Purpose | Example |

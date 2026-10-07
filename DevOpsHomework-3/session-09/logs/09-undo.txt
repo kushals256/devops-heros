@@ -1,0 +1,6 @@
++ kubectl rollout history deployment/kubernetes-bootcamp
+deployment.apps/kubernetes-bootcamp 
+REVISION  CHANGE-CAUSE
+2         <none>
+3         <none>
+

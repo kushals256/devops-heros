@@ -1,0 +1,5 @@
++ kubectl get pods -l app=kubernetes-bootcamp -o wide
+NAME                                   READY   STATUS    RESTARTS   AGE   IP           NODE       NOMINATED NODE   READINESS GATES
+kubernetes-bootcamp-5959ff7698-2b79f   1/1     Running   0          1s    10.244.0.8   minikube   <none>           <none>
+kubernetes-bootcamp-5959ff7698-pq55j   1/1     Running   0          37s   10.244.0.7   minikube   <none>           <none>
+kubernetes-bootcamp-5959ff7698-rwv6g   1/1     Running   0          1s    10.244.0.9   minikube   <none>           <none>

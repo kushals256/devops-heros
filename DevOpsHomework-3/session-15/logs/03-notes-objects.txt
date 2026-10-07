@@ -1,0 +1,8 @@
+NAME                          READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/notes-notes   1/1     1            1           72s
+
+NAME                  TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
+service/notes-notes   ClusterIP   10.105.19.12   <none>        80/TCP    72s
+
+NAME                    DATA   AGE
+configmap/notes-notes   1      72s

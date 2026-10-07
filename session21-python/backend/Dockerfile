@@ -8,4 +8,4 @@ COPY alembic ./alembic
 COPY app ./app
 USER 10001
 EXPOSE 8000
-CMD ["sh", "-c", "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"]
+CMD ["sh", "-c", "i=0; until alembic upgrade head; do i=$((i+1)); if [ \"$i\" -ge 15 ]; then exit 1; fi; sleep 2; done; exec uvicorn app.main:app --host 0.0.0.0 --port 8000"]
