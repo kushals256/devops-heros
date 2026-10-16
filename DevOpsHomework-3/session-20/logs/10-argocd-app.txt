@@ -1,0 +1,2 @@
+NAME                    SYNC STATUS   HEALTH STATUS   REVISION                                   PROJECT
+session20-gitops-demo   Synced        Healthy         8da7c1451799dfc53ffc9a3f4bbe6cb94c95d95d   default

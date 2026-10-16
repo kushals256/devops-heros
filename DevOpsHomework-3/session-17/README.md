@@ -49,6 +49,12 @@ Code → Unit Test → SAST (Bandit) → SCA (pip-audit) → Secret Scan
 
 ![trivy](screenshots/10-trivy.png)
 
+### GitHub Actions — green run (root workflow)
+
+![actions runs](screenshots/11-actions-runs.png)
+
+![actions green UI](screenshots/08-actions-green-ui.png)
+
 ### Earlier captures
 
 ![pipeline](screenshots/01-pipeline.png)

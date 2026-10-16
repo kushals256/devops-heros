@@ -45,6 +45,12 @@ Reference: `session-16-github-actions/.../10-final-cicd-pipeline`
 
 ![app ui](screenshots/06-app-ui.png)
 
+### GitHub Actions — green run (root workflow)
+
+![actions runs](screenshots/07-actions-runs.png)
+
+![actions green UI](screenshots/08-actions-green-ui.png)
+
 ### Earlier pipeline / pytest captures
 
 ![pipeline](screenshots/01-pipeline.png)

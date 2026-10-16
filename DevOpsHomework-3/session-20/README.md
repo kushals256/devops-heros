@@ -19,7 +19,8 @@ docker compose up -d
 | Metrics | Prometheus `up == 1` | screenshots below |
 | Logs | container / kubectl logs | earlier observe shots |
 | Alerts | `session20-demo-alerts` rules loaded | Alerts UI screenshot |
-| App health | Grafana login HTTP 200 | Grafana UI screenshot |
+| App health | Grafana dashboard panels with live Prometheus data | dashboard screenshot |
+| GitOps | Argo CD Application `Synced` + `Healthy` | Argo screenshot |
 
 ### Screenshots / proof
 
@@ -50,6 +51,14 @@ docker compose up -d
 #### Grafana login UI (v12.1.1)
 
 ![grafana](screenshots/10-grafana-login-ui.png)
+
+#### Grafana dashboard — Prometheus UP + request rate panels
+
+![grafana dashboard](screenshots/12-grafana-dashboard-panels.png)
+
+#### Argo CD — Application Synced + Healthy
+
+![argocd synced](screenshots/11-argocd-synced.png)
 
 #### Earlier Minikube observe shots
 

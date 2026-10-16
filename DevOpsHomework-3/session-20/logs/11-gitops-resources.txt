@@ -1,0 +1,9 @@
+NAME                          READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/gitops-demo   2/2     2            2           48s
+
+NAME                  TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
+service/gitops-demo   ClusterIP   10.106.206.17   <none>        80/TCP    48s
+
+NAME                               READY   STATUS    RESTARTS   AGE
+pod/gitops-demo-57f4fd989c-hhqnj   1/1     Running   0          48s
+pod/gitops-demo-57f4fd989c-l7rb2   1/1     Running   0          48s
