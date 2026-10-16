@@ -1,0 +1,134 @@
+=== poll 1 ===
+NAME            REFERENCE              TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+load-demo-hpa   Deployment/load-demo   cpu: <unknown>/40%   1         5         1          105s
+NAME                         READY   STATUS    RESTARTS   AGE
+load-demo-799997bbc4-kb2jw   1/1     Running   0          105s
+NAME                         CPU(cores)   MEMORY(bytes)   
+load-demo-799997bbc4-kb2jw   12m          11Mi            
+=== poll 2 ===
+NAME            REFERENCE              TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+load-demo-hpa   Deployment/load-demo   cpu: <unknown>/40%   1         5         1          2m1s
+NAME                         READY   STATUS    RESTARTS   AGE
+load-demo-799997bbc4-kb2jw   1/1     Running   0          2m1s
+NAME                         CPU(cores)   MEMORY(bytes)   
+load-demo-799997bbc4-kb2jw   12m          11Mi            
+=== poll 3 ===
+NAME            REFERENCE              TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+load-demo-hpa   Deployment/load-demo   cpu: <unknown>/40%   1         5         1          2m16s
+NAME                         READY   STATUS    RESTARTS   AGE
+load-demo-799997bbc4-kb2jw   1/1     Running   0          2m16s
+NAME                         CPU(cores)   MEMORY(bytes)   
+load-demo-799997bbc4-kb2jw   3m           11Mi            
+=== poll 4 ===
+NAME            REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+load-demo-hpa   Deployment/load-demo   cpu: 6%/40%   1         5         1          2m31s
+NAME                         READY   STATUS    RESTARTS   AGE
+load-demo-799997bbc4-kb2jw   1/1     Running   0          2m31s
+NAME                         CPU(cores)   MEMORY(bytes)   
+load-demo-799997bbc4-kb2jw   3m           11Mi            
+=== poll 5 ===
+NAME            REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+load-demo-hpa   Deployment/load-demo   cpu: 6%/40%   1         5         1          2m46s
+NAME                         READY   STATUS    RESTARTS   AGE
+load-demo-799997bbc4-kb2jw   1/1     Running   0          2m46s
+NAME                         CPU(cores)   MEMORY(bytes)   
+load-demo-799997bbc4-kb2jw   3m           11Mi            
+=== poll 6 ===
+NAME            REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+load-demo-hpa   Deployment/load-demo   cpu: 6%/40%   1         5         1          3m2s
+NAME                         READY   STATUS    RESTARTS   AGE
+load-demo-799997bbc4-kb2jw   1/1     Running   0          3m2s
+NAME                         CPU(cores)   MEMORY(bytes)   
+load-demo-799997bbc4-kb2jw   3m           11Mi            
+=== poll 7 ===
+NAME            REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+load-demo-hpa   Deployment/load-demo   cpu: 8%/40%   1         5         1          3m17s
+NAME                         READY   STATUS    RESTARTS   AGE
+load-demo-799997bbc4-kb2jw   1/1     Running   0          3m17s
+NAME                         CPU(cores)   MEMORY(bytes)   
+load-demo-799997bbc4-kb2jw   4m           11Mi            
+=== poll 8 ===
+NAME            REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+load-demo-hpa   Deployment/load-demo   cpu: 8%/40%   1         5         1          3m32s
+NAME                         READY   STATUS    RESTARTS   AGE
+load-demo-799997bbc4-kb2jw   1/1     Running   0          3m32s
+NAME                         CPU(cores)   MEMORY(bytes)   
+load-demo-799997bbc4-kb2jw   4m           11Mi            
+=== poll 9 ===
+NAME            REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+load-demo-hpa   Deployment/load-demo   cpu: 8%/40%   1         5         1          3m47s
+NAME                         READY   STATUS    RESTARTS   AGE
+load-demo-799997bbc4-kb2jw   1/1     Running   0          3m47s
+NAME                         CPU(cores)   MEMORY(bytes)   
+load-demo-799997bbc4-kb2jw   4m           11Mi            
+=== poll 10 ===
+NAME            REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+load-demo-hpa   Deployment/load-demo   cpu: 8%/40%   1         5         1          4m2s
+NAME                         READY   STATUS    RESTARTS   AGE
+load-demo-799997bbc4-kb2jw   1/1     Running   0          4m2s
+NAME                         CPU(cores)   MEMORY(bytes)   
+load-demo-799997bbc4-kb2jw   4m           11Mi            
+=== poll 1 ===
+NAME            REFERENCE              TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+load-demo-hpa   Deployment/load-demo   cpu: <unknown>/40%   1         5         1          4m32s
+NAME                         READY   STATUS        RESTARTS   AGE
+load-demo-767fbc966b-7f9p5   1/1     Running       0          19s
+load-demo-799997bbc4-kb2jw   1/1     Terminating   0          4m32s
+NAME                         CPU(cores)   MEMORY(bytes)   
+load-demo-799997bbc4-kb2jw   4m           11Mi            
+replicas=1
+=== poll 2 ===
+NAME            REFERENCE              TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+load-demo-hpa   Deployment/load-demo   cpu: <unknown>/40%   1         5         1          4m47s
+NAME                         READY   STATUS    RESTARTS   AGE
+load-demo-767fbc966b-7f9p5   1/1     Running   0          34s
+replicas=1
+=== poll 3 ===
+NAME            REFERENCE              TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+load-demo-hpa   Deployment/load-demo   cpu: <unknown>/40%   1         5         1          5m2s
+NAME                         READY   STATUS    RESTARTS   AGE
+load-demo-767fbc966b-7f9p5   1/1     Running   0          49s
+replicas=1
+=== poll 4 ===
+NAME            REFERENCE              TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+load-demo-hpa   Deployment/load-demo   cpu: <unknown>/40%   1         5         1          5m18s
+NAME                         READY   STATUS    RESTARTS   AGE
+load-demo-767fbc966b-7f9p5   1/1     Running   0          65s
+NAME                         CPU(cores)   MEMORY(bytes)   
+load-demo-767fbc966b-7f9p5   37m          11Mi            
+replicas=1
+=== poll 5 ===
+NAME            REFERENCE              TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+load-demo-hpa   Deployment/load-demo   cpu: <unknown>/40%   1         5         1          5m33s
+NAME                         READY   STATUS    RESTARTS   AGE
+load-demo-767fbc966b-7f9p5   1/1     Running   0          80s
+NAME                         CPU(cores)   MEMORY(bytes)   
+load-demo-767fbc966b-7f9p5   37m          11Mi            
+replicas=1
+=== poll 6 ===
+NAME            REFERENCE              TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+load-demo-hpa   Deployment/load-demo   cpu: <unknown>/40%   1         5         1          5m48s
+NAME                         READY   STATUS    RESTARTS   AGE
+load-demo-767fbc966b-7f9p5   1/1     Running   0          95s
+NAME                         CPU(cores)   MEMORY(bytes)   
+load-demo-767fbc966b-7f9p5   37m          11Mi            
+replicas=1
+=== poll 7 ===
+NAME            REFERENCE              TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+load-demo-hpa   Deployment/load-demo   cpu: <unknown>/40%   1         5         1          6m3s
+NAME                         READY   STATUS    RESTARTS   AGE
+load-demo-767fbc966b-7f9p5   1/1     Running   0          110s
+NAME                         CPU(cores)   MEMORY(bytes)   
+load-demo-767fbc966b-7f9p5   37m          11Mi            
+replicas=1
+=== poll 8 ===
+NAME            REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+load-demo-hpa   Deployment/load-demo   cpu: 145%/40%   1         5         1          6m18s
+NAME                         READY   STATUS    RESTARTS   AGE
+load-demo-767fbc966b-657cj   1/1     Running   0          2s
+load-demo-767fbc966b-7f9p5   1/1     Running   0          2m5s
+load-demo-767fbc966b-7mndj   1/1     Running   0          2s
+load-demo-767fbc966b-fqt29   1/1     Running   0          2s
+NAME                         CPU(cores)   MEMORY(bytes)   
+load-demo-767fbc966b-7f9p5   29m          11Mi            
+replicas=4

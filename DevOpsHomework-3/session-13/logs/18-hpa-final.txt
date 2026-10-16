@@ -1,0 +1,5 @@
+NAME                             READY   STATUS    RESTARTS   AGE
+pod/load-demo-767fbc966b-657cj   1/1     Running   0          3s
+pod/load-demo-767fbc966b-7f9p5   1/1     Running   0          2m6s
+pod/load-demo-767fbc966b-7mndj   1/1     Running   0          3s
+pod/load-demo-767fbc966b-fqt29   1/1     Running   0          3s

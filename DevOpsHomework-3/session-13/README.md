@@ -32,6 +32,18 @@ kubectl describe hpa
 
 The script starts 10 parallel `curl` workers against the health endpoint to raise CPU so the HPA can scale.
 
+
+
+### Load generator → HPA scale proof
+
+Used `./load_generator.sh` / parallel curl workers against `load-demo` Service. CPU hit **145%/40%** and HPA scaled **1 → 4** replicas.
+
+![HPA watch under load](screenshots/15-loadgen-hpa-watch.png)
+
+![HPA final scaled](screenshots/16-loadgen-hpa-final.png)
+
+![describe hpa](screenshots/17-loadgen-hpa-describe.png)
+
 ### Observed scaling (cpu-demo)
 
 `hpa-demo` (nginx) stayed at 1 replica because nginx uses about 1% of its CPU request, under the 50% target.

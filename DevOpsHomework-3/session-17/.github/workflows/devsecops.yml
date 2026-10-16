@@ -107,12 +107,11 @@ jobs:
       - name: Load image
         run: docker load -i /tmp/image.tar
       - name: Trivy scan (fail on HIGH/CRITICAL)
-        uses: aquasecurity/trivy-action@v0.30.0
-        with:
-          image-ref: session17-devsecops:${{ github.sha }}
-          severity: HIGH,CRITICAL
-          exit-code: "1"
-          ignore-unfixed: true
+        run: |
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
+            aquasec/trivy:0.58.1 image \
+            --severity HIGH,CRITICAL --exit-code 1 --ignore-unfixed \
+            session17-devsecops:${{ github.sha }}
 
   push:
     name: Push Image (GHCR)
