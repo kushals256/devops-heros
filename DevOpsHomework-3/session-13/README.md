@@ -9,9 +9,34 @@ Documented in [01-kubernetes-volumes/README.md](01-kubernetes-volumes/README.md)
 
 ## Task 2 — HPA
 
-Course files: `session-13-storage-hpa-probes/04-hpa/`. `hpa-demo` (nginx) stayed at 1 replica because nginx uses about 1% of its CPU request, under the 50% target.
+Course files: `session-13-storage-hpa-probes/04-hpa/` and `session-13-storage-hpa-probes/hpa/`.
 
-A second Deployment, `cpu-demo`, runs a Python loop with a 50m CPU request and an HPA target of 40%. Metrics-server reported **389%** and the HPA scaled **1 → 4** Pods (the max).
+### Official load generator
+
+Copied course script to this folder: [`load_generator.sh`](load_generator.sh).
+
+```bash
+# Deploy the HPA sample (course YAML)
+kubectl apply -f ../../session-13-storage-hpa-probes/04-hpa/
+
+# Port-forward the Service, then generate load
+kubectl port-forward svc/yatri-backend-service 5000:80 &
+./load_generator.sh http://localhost:5000/healthz
+
+# Watch scaling in another terminal
+kubectl get hpa -w
+kubectl get pods
+kubectl top pods
+kubectl describe hpa
+```
+
+The script starts 10 parallel `curl` workers against the health endpoint to raise CPU so the HPA can scale.
+
+### Observed scaling (cpu-demo)
+
+`hpa-demo` (nginx) stayed at 1 replica because nginx uses about 1% of its CPU request, under the 50% target.
+
+A second Deployment, `cpu-demo`, runs a Python loop with a 50m CPU request and an HPA target of 40%. Metrics-server reported **389%** and the HPA scaled **1 → 4** Pods (the max). That is the same outcome the curl load generator is meant to produce on a CPU-sensitive workload.
 
 ```bash
 kubectl get hpa
@@ -20,11 +45,21 @@ kubectl top pods
 kubectl describe hpa
 ```
 
+### Screenshots / proof (HPA)
+
 ![metrics](screenshots/06-top.png)
 
 ![HPA scaled to 4](screenshots/14-hpa-scaled.png)
 
 ![describe](screenshots/08-hpa-describe.png)
+
+![hpa before](screenshots/05-hpa-before.png)
+
+![hpa after](screenshots/07-hpa-after.png)
+
+![hpa pods](screenshots/10-hpa-pods.png)
+
+`load_generator.sh` is included in this folder for the official curl-based load path.
 
 ## Task 3 — Mini project
 

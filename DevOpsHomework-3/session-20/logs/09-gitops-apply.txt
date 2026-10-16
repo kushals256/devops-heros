@@ -1,0 +1,1 @@
+minikube not ready; gitops manifests present for apply

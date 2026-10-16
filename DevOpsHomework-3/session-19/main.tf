@@ -101,7 +101,7 @@ resource "aws_instance" "web" {
 }
 
 resource "aws_s3_bucket" "lab" {
-  bucket        = "${var.project}-304166770455"
+  bucket        = "${var.project}-273528188747"
   force_destroy = true
 
   tags = {

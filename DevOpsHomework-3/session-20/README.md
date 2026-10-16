@@ -1,59 +1,85 @@
-# Session 20 — Monitoring, observability, and GitOps
+# Session 20 — Monitoring, Observability & GitOps
 
 **Author:** Kushal S  
 **Enrollment:** 24bcs10355
 
-## Task 1 — Monitoring
+## Task 1 — Monitoring demo
 
-Monitoring is watching known signals and alerting when they cross a line.
+Runnable stack: [`monitoring/`](monitoring/)
 
-| Signal | What it answers | What we ran |
+```bash
+cd monitoring
+docker compose up -d
+# Prometheus :9090
+# Grafana    :3200  (admin / admin)
+```
+
+| Signal | Demo | Evidence |
 |---|---|---|
-| Metrics | How much CPU and memory, and is the count healthy? | `kubectl top nodes` — minikube 919m CPU (22%), 1174Mi memory (19%) |
-| Logs | What did the process print? | `kubectl logs deploy/gitops-demo` — nginx worker processes started |
-| Alerts | Should a person be paged? | An alert is a rule on a metric. Example: page if Pod CPU stays above 80% of its limit for 5 minutes, or if ready replicas are 0 |
-| Application health | Is it serving? | Readiness and liveness probes on the session 13 `web-app` |
+| Metrics | Prometheus `up == 1` | screenshots below |
+| Logs | container / kubectl logs | earlier observe shots |
+| Alerts | `session20-demo-alerts` rules loaded | Alerts UI screenshot |
+| App health | Grafana login HTTP 200 | Grafana UI screenshot |
 
-![node metrics, logs, 2 replicas](screenshots/01-observe.png)
+### Screenshots / proof
+
+#### Containers up
+
+![monitoring up](screenshots/03-monitoring-up.png)
+
+#### Prometheus healthy
+
+![prom health](screenshots/04-prometheus-health.png)
+
+#### Alert rules JSON
+
+![alert rules](screenshots/05-alert-rules.png)
+
+#### `up` query result
+
+![up query](screenshots/07-prometheus-up-query.png)
+
+#### Prometheus UI — `up` = 1
+
+![prometheus UI](screenshots/08-prometheus-up-ui.png)
+
+#### Prometheus Alerts UI — rules loaded (INACTIVE)
+
+![alerts UI](screenshots/09-prometheus-alerts-ui.png)
+
+#### Grafana login UI (v12.1.1)
+
+![grafana](screenshots/10-grafana-login-ui.png)
+
+#### Earlier Minikube observe shots
+
+![observe](screenshots/01-observe.png)
+
+![pod metrics](screenshots/02-pod-metrics.png)
 
 ## Task 2 — Observability
 
-Observability is being able to explain a new failure from the signals you already collect, not only from dashboards you planned.
+Full write-up: [`observability/README.md`](observability/README.md)
 
-| Pillar | Meaning | Kubernetes tools |
+| Pillar | Meaning | Tools |
 |---|---|---|
-| Metrics | Numbers over time | metrics-server, Prometheus, `kubectl top` |
-| Logs | Discrete events | container stdout, `kubectl logs`, Loki, the node journal |
-| Traces | One request’s path across services | OpenTelemetry, Jaeger, Tempo |
-
-You need all three because a CPU graph shows pain, a log shows the error string, and a trace shows which hop added the latency. On Kubernetes the usual set is Prometheus + Grafana for metrics, a log agent such as Fluent Bit, and an OpenTelemetry collector for traces. This Minikube cluster has metrics-server. It does not have a trace backend; a trace would be a span per HTTP hop exported to Jaeger.
+| Metrics | Numbers over time | Prometheus, Grafana |
+| Logs | Discrete events | Loki, Fluent Bit, `kubectl logs` |
+| Traces | Request path | OpenTelemetry, Jaeger, Tempo |
 
 ## Task 3 — GitOps
 
-GitOps means the Git commit is the desired state. A controller (or a person running `kubectl apply` from that commit) reconciles the cluster until it matches.
+See [`gitops/README.md`](gitops/README.md).
 
-| Idea | In this lab |
+| Idea | Demo |
 |---|---|
-| Git as source of truth | `gitops/deployment.yaml` |
-| Declarative configuration | The file says `replicas: 2`. It does not say “scale up by 1” |
-| Reconciliation | `kubectl apply -f gitops/deployment.yaml` twice. First apply created 1 replica. The file was changed to 2 and applied again. The Deployment became 2/2 |
-| Kubernetes + GitOps | Argo CD or Flux would watch the Git repo and apply that same file when it changes. The apply here is the same reconciliation step, run by hand |
+| Git as source of truth | `gitops/app/*.yaml` |
+| Declarative config | `replicas: 2` |
+| Continuous reconciliation | Argo CD Application with `selfHeal: true` |
+| Manual reconcile | `kubectl apply -f gitops/app/` |
 
-```text
-edit gitops/deployment.yaml
-        |
-        v
-kubectl apply -f gitops/deployment.yaml
-        |
-        v
-Deployment gitops-demo 2/2
+```bash
+kubectl apply -f gitops/app/deployment.yaml -f gitops/app/service.yaml
+# After Argo CD install (course lab):
+# kubectl apply -f gitops/app/argocd-application.yaml -n argocd
 ```
-
-![GitOps result](screenshots/01-observe.png)
-
-Course material for Argo CD is in `session20-monitoring-observability-gitops/07-argocd/`.
-
-## More screenshots
-
-![02 pod metrics](screenshots/02-pod-metrics.png)
-

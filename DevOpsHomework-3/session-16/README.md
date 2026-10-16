@@ -1,36 +1,68 @@
-# Session 16 — CI/CD demo
+# Session 16 — CI/CD & GitHub Actions Demo
 
 **Author:** Kushal S  
 **Enrollment:** 24bcs10355
 
-Reference layout: `session-16-github-actions/session-16-github-actions/10-final-cicd-pipeline`. This folder is the runnable demo.
+Reference: `session-16-github-actions/.../10-final-cicd-pipeline`
 
-## What is covered
+## Concepts covered
 
-| Idea | Where |
+| Concept | How this project demonstrates it |
 |---|---|
-| CI vs CD | CI is `test` (pytest). CD is `build` (image) and it only runs after tests pass (`needs: test`) |
+| CI vs CD | **CI** = `test` + `build` jobs. **CD** = `deploy` job pushes the image to GHCR after CI passes |
 | Pipeline | `.github/workflows/ci-cd.yml` |
-| Workflow, jobs, steps | One workflow, jobs `test` and `build`, steps checkout / setup-python / pytest / docker build / upload-artifact |
-| Runner | `ubuntu-latest` |
-| Artifact | The Dockerfile is uploaded with `actions/upload-artifact` |
-| Build and test | Local pytest and `docker build` / `docker run` |
+| Workflow | One YAML file triggered on push / PR / `workflow_dispatch` |
+| Jobs | `test` → `build` → `deploy` (`needs:` chain) |
+| Steps | checkout, setup-python, pytest, docker build, curl smoke test, login, push |
+| Runners | `ubuntu-latest` (GitHub-hosted) |
+| Secrets | `GITHUB_TOKEN` for GHCR login; optional `DEMO_TOKEN` documented (never committed) |
+| Artifacts | Image tarball uploaded with `actions/upload-artifact` |
+| Build | `docker build -t session16-cicd:<sha>` |
+| Test | `pytest` (5 tests) |
 
-Secrets are not stored in the repo. A real registry push would use a GitHub Actions secret such as `GITHUB_TOKEN` for GHCR, the same pattern as the course `07-secrets` labs.
+## Application
 
-## Local run
+- `app.py` — Flask Hello World (`/`, `/health`)
+- `Dockerfile`
+- `tests/test_app.py`
+- `.github/workflows/ci-cd.yml`
 
-```text
-pytest -q
-3 passed in 0.00s
+## Screenshots / proof
 
-docker build -t session16-cicd:local .
-docker run --rm session16-cicd:local
-Hello from CI/CD 5
-```
+### Pytest (5 passed)
+
+![pytest pass](screenshots/03-pytest-pass.png)
+
+### App health + home response
+
+![app health](screenshots/04-app-health.png)
+
+### Live `/health` in browser
+
+![health UI](screenshots/05-health-ui.png)
+
+### App summary card
+
+![app ui](screenshots/06-app-ui.png)
+
+### Earlier pipeline / pytest captures
+
+![pipeline](screenshots/01-pipeline.png)
 
 ![pytest](screenshots/02-pytest.png)
 
-![build and run](screenshots/01-pipeline.png)
+## Local run
 
-The workflow runs on GitHub when this folder is pushed. The commands above are the same steps, executed locally.
+```bash
+cd DevOpsHomework-3/session-16
+pip install -r requirements.txt
+pytest -q
+docker build -t session16-cicd:local .
+docker run --rm -p 18080:8080 session16-cicd:local
+curl http://localhost:18080/health
+```
+
+## CD note
+
+On push to `main`, the `deploy` job logs into GHCR with `secrets.GITHUB_TOKEN` and pushes `ghcr.io/<owner>/session16-cicd:<sha>`.  
+Optional custom secret: repository secret `DEMO_TOKEN`.

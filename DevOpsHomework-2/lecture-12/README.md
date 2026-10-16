@@ -106,6 +106,9 @@ kubectl exec deploy/yatri-backend -- env | grep -E 'ENVIRONMENT|POSTGRES'
 
 ## Task 7: Ingress Resource vs Controller
 
+Full write-up (what each is, why both are required, examples):  
+**[ingress-vs-controller/README.md](ingress-vs-controller/README.md)**
+
 | Ingress Resource | Ingress Controller |
 |---|---|
 | YAML rules (hosts/paths/TLS) | Running reverse proxy (NGINX) |

@@ -1,0 +1,6 @@
+aws_s3_bucket.devops553: Destroying... [id=kushal-s18-s3-273528188747][0m[0m
+[0m[1maws_s3_bucket.devops553: Destruction complete after 2s[0m
+[0m[1m[32m
+Destroy complete! Resources: 1 destroyed.[0m
+
+---

@@ -1,0 +1,5 @@
+bucket_name = "session19-kushal-273528188747"
+instance_id = "i-0212c1981e1bdc4c3"
+security_group_id = "sg-0fa5f9f8e900a05d6"
+subnet_id = "subnet-0fbba41af2157fd5a"
+vpc_id = "vpc-0f3c612ff0cbee199"

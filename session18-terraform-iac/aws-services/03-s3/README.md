@@ -1,24 +1,60 @@
-# AWS S3 – Simple Storage Service
+# AWS S3 — Storage
 
-**S3** is object storage for files (objects) inside buckets.
+**Author notes (Session 18 homework):** Kushal S · 24bcs10355
 
-## Key Concepts
+## What is S3?
 
-| Concept | Meaning |
+**Simple Storage Service** — object storage. Files are objects (key + data + metadata) inside buckets.
+
+## Buckets
+
+- Globally unique name
+- Belong to one region
+- Container for objects and policies
+
+## Objects
+
+- Addressable by key (path-like string)
+- Optional version IDs when versioning is on
+- Metadata and tags for lifecycle/search
+
+## Storage classes
+
+| Class | Typical use |
 |---|---|
-| **Bucket** | Globally unique container in a region |
-| **Object** | File stored as key + data (+ metadata) |
-| **Storage class** | Cost/performance tier (Standard, IA, Glacier, …) |
-| **Versioning** | Keeps previous object versions |
-| **Lifecycle** | Auto-transition / expire objects |
-| **Encryption** | SSE-S3, SSE-KMS, SSE-C |
+| Standard | Hot / frequent access |
+| Standard-IA / One Zone-IA | Infrequent access |
+| Glacier Instant / Flexible / Deep Archive | Archive / backup |
+| Intelligent-Tiering | Unknown or changing access patterns |
 
-## Why S3 Matters for DevOps
+## Versioning
 
-- Store artifacts, backups, static websites, logs.
-- Common remote backend for Terraform state.
+Keeps previous versions of an object so deletes/overwrites are recoverable.
 
-## Useful CLI Commands
+## Lifecycle policies
+
+Rules that transition objects to colder classes or expire them after N days.
+
+## Encryption
+
+- **SSE-S3** — AWS-managed keys
+- **SSE-KMS** — customer-controlled via KMS
+- **SSE-C** — customer-provided keys
+- Bucket default encryption recommended
+
+## Bucket policies
+
+JSON resource policies on the bucket (who can `s3:GetObject`, public access blocks, enforce HTTPS, etc.). Combine with IAM identity policies.
+
+## Common use cases
+
+- Static websites / assets
+- Terraform remote state
+- CI artifacts and logs
+- Backups and data lakes
+- Session 18 `terraform-s3-demo` homework bucket
+
+## Useful CLI
 
 ```bash
 aws s3 ls

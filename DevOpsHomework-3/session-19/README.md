@@ -2,43 +2,72 @@
 
 **Author:** Kushal S  
 **Enrollment:** 24bcs10355  
-**Region:** `ap-northeast-2` (Seoul)
+**Region:** `ap-northeast-2` (Seoul)  
+**AWS Account:** `273528188747`
 
 ## Architecture
 
 ```text
 Terraform
     |
-    ├── VPC 10.20.0.0/16          aws_vpc.main
+    ├── VPC 10.20.0.0/16              aws_vpc.main
     |
-    ├── Public subnet 10.20.1.0/24  aws_subnet.public
+    ├── Public subnet 10.20.1.0/24    aws_subnet.public
     |
-    ├── Internet gateway          aws_internet_gateway.main
+    ├── Internet gateway              aws_internet_gateway.main
     |     └── public route 0.0.0.0/0
     |
-    ├── Security group            aws_security_group.web  (TCP 80)
+    ├── Security group                aws_security_group.web  (TCP 80)
     |
-    ├── EC2 t4g.micro             aws_instance.web
+    ├── EC2 t4g.micro                 aws_instance.web (AL2023 + nginx)
     |     └── depends_on the internet gateway
     |
-    └── S3                        aws_s3_bucket.lab
+    └── S3                            aws_s3_bucket.lab
 ```
 
-Files: `versions.tf`, `variables.tf`, `main.tf`, `outputs.tf`.
+Mermaid diagram: [architecture.md](architecture.md).
 
-What the project demonstrates:
+## Workflow (executed successfully)
 
-| Terraform idea | Where |
-|---|---|
-| Provider | `provider "aws"` in `versions.tf` |
-| Variables | `aws_region`, `project` |
-| Resources | VPC, subnet, IGW, route table, association, security group, instance, bucket |
-| Outputs | vpc id, subnet id, security group id, instance id, bucket name |
-| Dependencies | Subnet and IGW use the VPC id. The instance `depends_on` the IGW. The route uses the gateway id |
-| State | Local `terraform.tfstate`, gitignored |
+| Command | Result | Log |
+|---|---|---|
+| `terraform init` | OK | `logs/02-init.txt` |
+| `terraform validate` | Valid | `logs/03-validate.txt` |
+| `terraform plan` | **8 to add** | `logs/04-plan.txt` |
+| `terraform apply` | **8 added** | `logs/05-apply.txt` |
+| `terraform output` | Resource IDs | `logs/06-output.txt` |
+| `terraform destroy` | **8 destroyed** | `logs/08-destroy.txt` |
 
-## Workflow
+## Screenshots / proof
 
-`terraform init`, `terraform fmt`, and `terraform validate` succeeded. The graph is one VPC, one public subnet, an internet gateway, a public route, a security group on TCP 80, one `t4g.micro` Amazon Linux 2023 instance, and one S3 bucket `session19-kushal-304166770455`.
+### terraform plan (8 to add)
 
-On 3 Oct 2026 the Seoul VPC lab destroyed two `session19-vpc` stacks: `vpc-08a326bb68c82cc0b` and `vpc-06dd90e20035e1c53`, with their subnets, internet gateways, route tables, and security groups.
+![plan](screenshots/04-plan.png)
+
+### terraform apply
+
+![apply](screenshots/05-apply.png)
+
+### terraform output (live resource IDs)
+
+![output](screenshots/06-output.png)
+
+### terraform destroy (8 destroyed)
+
+![destroy](screenshots/08-destroy.png)
+
+### Earlier plan attempt
+
+![old plan](screenshots/01-plan.png)
+
+## Live outputs from apply
+
+```text
+bucket_name       = "session19-kushal-273528188747"
+instance_id       = "i-0212c1981e1bdc4c3"
+security_group_id = "sg-0fa5f9f8e900a05d6"
+subnet_id         = "subnet-0fbba41af2157fd5a"
+vpc_id            = "vpc-0f3c612ff0cbee199"
+```
+
+All resources were destroyed after evidence capture to avoid ongoing AWS cost.

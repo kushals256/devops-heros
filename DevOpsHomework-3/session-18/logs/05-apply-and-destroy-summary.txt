@@ -1,0 +1,86 @@
+aws_s3_bucket.devops553: Creating...[0m[0m
+[0m[1maws_s3_bucket.devops553: Still creating... [00m10s elapsed][0m[0m
+[0m[1maws_s3_bucket.devops553: Creation complete after 17s [id=kushal-s18-s3-273528188747][0m
+[0m[1m[32m
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.[0m
+[0m[1m[32m
+Outputs:
+
+[0mbucket_arn = "arn:aws:s3:::kushal-s18-s3-273528188747"
+bucket_name = "kushal-s18-s3-273528188747"
+bucket_region = "ap-northeast-2"
+    }
+    tags_all                    = {
+        "Environment" = "dev"
+        "ManagedBy"   = "Terraform"
+        "Name"        = "kushal-s18-s3-273528188747"
+        "Project"     = "Session18"
+    }
+
+    grant {
+        id          = "d506bebb272fabe517651b0a403f918d59039b6856c5fd2e41a1df94377d4daa"
+        permissions = [
+            "FULL_CONTROL",
+        ]
+        type        = "CanonicalUser"
+        uri         = null
+    }
+
+    server_side_encryption_configuration {
+        rule {
+            bucket_key_enabled = false
+
+            apply_server_side_encryption_by_default {
+                kms_master_key_id = null
+                sse_algorithm     = "AES256"
+            }
+        }
+    }
+
+    versioning {
+        enabled    = false
+        mfa_delete = false
+    }
+}
+
+
+Outputs:
+
+bucket_arn = "arn:aws:s3:::kushal-s18-s3-273528188747"
+bucket_name = "kushal-s18-s3-273528188747"
+bucket_region = "ap-northeast-2"
+bucket_arn = "arn:aws:s3:::kushal-s18-s3-273528188747"
+bucket_name = "kushal-s18-s3-273528188747"
+bucket_region = "ap-northeast-2"
+            [90m# (1 unchanged attribute hidden)[0m[0m
+        }
+
+      [31m-[0m[0m server_side_encryption_configuration {
+          [31m-[0m[0m rule {
+              [31m-[0m[0m bucket_key_enabled = false [90m-> null[0m[0m
+
+              [31m-[0m[0m apply_server_side_encryption_by_default {
+                  [31m-[0m[0m sse_algorithm     = "AES256" [90m-> null[0m[0m
+                    [90m# (1 unchanged attribute hidden)[0m[0m
+                }
+            }
+        }
+
+      [31m-[0m[0m versioning {
+          [31m-[0m[0m enabled    = false [90m-> null[0m[0m
+          [31m-[0m[0m mfa_delete = false [90m-> null[0m[0m
+        }
+    }
+
+[1mPlan:[0m [0m0 to add, 0 to change, 1 to destroy.
+
+Changes to Outputs:
+  [31m-[0m[0m bucket_arn    = "arn:aws:s3:::kushal-s18-s3-273528188747" [90m-> null[0m[0m
+  [31m-[0m[0m bucket_name   = "kushal-s18-s3-273528188747" [90m-> null[0m[0m
+  [31m-[0m[0m bucket_region = "ap-northeast-2" [90m-> null[0m[0m
+[0m[1maws_s3_bucket.devops553: Destroying... [id=kushal-s18-s3-273528188747][0m[0m
+[0m[1maws_s3_bucket.devops553: Destruction complete after 2s[0m
+[0m[1m[32m
+Destroy complete! Resources: 1 destroyed.[0m
+
+---

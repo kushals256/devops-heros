@@ -1,0 +1,62 @@
+# aws_s3_bucket.devops553:
+resource "aws_s3_bucket" "devops553" {
+    acceleration_status         = null
+    arn                         = "arn:aws:s3:::kushal-s18-s3-273528188747"
+    bucket                      = "kushal-s18-s3-273528188747"
+    bucket_domain_name          = "kushal-s18-s3-273528188747.s3.amazonaws.com"
+    bucket_namespace            = "global"
+    bucket_prefix               = null
+    bucket_region               = "ap-northeast-2"
+    bucket_regional_domain_name = "kushal-s18-s3-273528188747.s3.ap-northeast-2.amazonaws.com"
+    force_destroy               = true
+    hosted_zone_id              = "Z3W03O7B5YMIYP"
+    id                          = "kushal-s18-s3-273528188747"
+    object_lock_enabled         = false
+    policy                      = null
+    region                      = "ap-northeast-2"
+    request_payer               = "BucketOwner"
+    tags                        = {
+        "Environment" = "dev"
+        "ManagedBy"   = "Terraform"
+        "Name"        = "kushal-s18-s3-273528188747"
+        "Project"     = "Session18"
+    }
+    tags_all                    = {
+        "Environment" = "dev"
+        "ManagedBy"   = "Terraform"
+        "Name"        = "kushal-s18-s3-273528188747"
+        "Project"     = "Session18"
+    }
+
+    grant {
+        id          = "d506bebb272fabe517651b0a403f918d59039b6856c5fd2e41a1df94377d4daa"
+        permissions = [
+            "FULL_CONTROL",
+        ]
+        type        = "CanonicalUser"
+        uri         = null
+    }
+
+    server_side_encryption_configuration {
+        rule {
+            bucket_key_enabled = false
+
+            apply_server_side_encryption_by_default {
+                kms_master_key_id = null
+                sse_algorithm     = "AES256"
+            }
+        }
+    }
+
+    versioning {
+        enabled    = false
+        mfa_delete = false
+    }
+}
+
+
+Outputs:
+
+bucket_arn = "arn:aws:s3:::kushal-s18-s3-273528188747"
+bucket_name = "kushal-s18-s3-273528188747"
+bucket_region = "ap-northeast-2"

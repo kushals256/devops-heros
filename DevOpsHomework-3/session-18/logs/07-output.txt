@@ -1,0 +1,3 @@
+bucket_arn = "arn:aws:s3:::kushal-s18-s3-273528188747"
+bucket_name = "kushal-s18-s3-273528188747"
+bucket_region = "ap-northeast-2"

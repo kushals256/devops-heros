@@ -1,4 +1,7 @@
-FROM python:3.12-alpine
+FROM python:3.12-slim
 WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 COPY app.py .
-CMD ["python", "-c", "from app import add; print('Hello from CI/CD', add(2, 3))"]
+EXPOSE 8080
+CMD ["python", "app.py"]

@@ -1,4 +1,4 @@
-name: Session 17 DevSecOps
+name: Session 17 DevSecOps Pipeline
 
 on:
   workflow_dispatch:
@@ -6,29 +6,173 @@ on:
     paths:
       - "DevOpsHomework-3/session-17/**"
 
+env:
+  IMAGE_NAME: session17-devsecops
+  WORKING_DIR: DevOpsHomework-3/session-17
+
 jobs:
-  pipeline:
+  test:
+    name: Unit Tests
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: DevOpsHomework-3/session-17
+        working-directory: ${{ env.WORKING_DIR }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Unit test
+      - name: Install and test
         run: |
-          pip install -r requirements.txt
-          pytest -q
-      - name: Secret scan
+          pip install -r requirements-dev.txt
+          PYTHONPATH=. pytest -q --cov=app --cov-report=term-missing
+
+  sast:
+    name: SAST - Bandit
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.WORKING_DIR }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run Bandit
         run: |
-          if grep -RInE 'AKIA[0-9A-Z]{16}|aws_secret_access_key' . --exclude-dir=.git; then
-            echo "secret found"
+          pip install bandit==1.8.3
+          bandit -r app -ll
+
+  sca:
+    name: SCA - pip-audit
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.WORKING_DIR }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Audit dependencies
+        run: |
+          pip install pip-audit==2.9.0
+          pip-audit -r requirements.txt
+
+  secret-scan:
+    name: Secret Scan
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.WORKING_DIR }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Scan for leaked credentials
+        run: |
+          if grep -RInE 'AKIA[0-9A-Z]{16}|aws_secret_access_key\s*=\s*.+' . \
+            --exclude-dir=.git --exclude-dir=.venv --exclude-dir=__pycache__; then
+            echo "Potential secret found"
             exit 1
           fi
-          echo "secret scan passed"
+          echo "Secret scan passed"
+
+  docker-build:
+    name: Docker Build
+    needs: [test, sast, sca, secret-scan]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.WORKING_DIR }}
+    steps:
+      - uses: actions/checkout@v4
       - name: Build image
-        run: docker build -t session17-devsecops:local .
-      - name: Image scan
-        run: docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:0.58.1 image --severity HIGH,CRITICAL --exit-code 0 session17-devsecops:local
+        run: docker build -t ${{ env.IMAGE_NAME }}:${{ github.sha }} .
+      - name: Save image
+        run: docker save ${{ env.IMAGE_NAME }}:${{ github.sha }} -o /tmp/image.tar
+      - uses: actions/upload-artifact@v4
+        with:
+          name: docker-image
+          path: /tmp/image.tar
+
+  image-scan:
+    name: Image Scan - Trivy (Security Gate)
+    needs: [docker-build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: docker-image
+          path: /tmp
+      - name: Load image
+        run: docker load -i /tmp/image.tar
+      - name: Trivy scan (fail on HIGH/CRITICAL)
+        uses: aquasecurity/trivy-action@0.30.0
+        with:
+          image-ref: session17-devsecops:${{ github.sha }}
+          severity: HIGH,CRITICAL
+          exit-code: "1"
+          ignore-unfixed: true
+
+  push:
+    name: Push Image (GHCR)
+    needs: [image-scan]
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: docker-image
+          path: /tmp
+      - name: Load image
+        run: docker load -i /tmp/image.tar
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Tag and push
+        run: |
+          OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          REMOTE="ghcr.io/${OWNER}/session17-devsecops:${{ github.sha }}"
+          docker tag session17-devsecops:${{ github.sha }} "$REMOTE"
+          docker tag session17-devsecops:${{ github.sha }} "ghcr.io/${OWNER}/session17-devsecops:latest"
+          docker push "$REMOTE"
+          docker push "ghcr.io/${OWNER}/session17-devsecops:latest"
+          echo "PUSHED=$REMOTE" >> "$GITHUB_ENV"
+
+  deploy:
+    name: Deploy to Kubernetes
+    needs: [push]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create kind cluster
+        uses: helm/kind-action@v1.10.0
+        with:
+          cluster_name: session17
+      - uses: actions/download-artifact@v4
+        with:
+          name: docker-image
+          path: /tmp
+      - name: Load image into kind
+        run: |
+          docker load -i /tmp/image.tar
+          kind load docker-image session17-devsecops:${{ github.sha }} --name session17
+      - name: Apply manifests
+        working-directory: DevOpsHomework-3/session-17
+        run: |
+          sed "s|__IMAGE_TAG__|${{ github.sha }}|g" k8s/deployment.yaml | kubectl apply -f -
+          kubectl apply -f k8s/service.yaml
+          kubectl rollout status deployment/session17-python --timeout=120s
+      - name: Smoke test
+        run: |
+          kubectl port-forward svc/session17-python 5001:80 &
+          sleep 3
+          curl -sf http://localhost:5001/ | head
+          curl -sf http://localhost:5001/health
+          curl -sf http://localhost:5001/api/status
