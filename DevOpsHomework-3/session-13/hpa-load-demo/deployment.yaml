@@ -26,7 +26,7 @@ spec:
                   def do_GET(self):
                       # Burn CPU so HPA can scale under load_generator.sh traffic
                       x = 0
-                      for i in range(250000):
+                      for i in range(4000000):
                           x += i * i
                       body = b'{"status":"ok"}'
                       self.send_response(200)
@@ -41,7 +41,7 @@ spec:
             - containerPort: 5000
           resources:
             requests:
-              cpu: "50m"
+              cpu: "20m"
               memory: 64Mi
             limits:
               cpu: "500m"
